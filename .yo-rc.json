@@ -104,6 +104,13 @@
           "github_repo": "devhub-app-web",
           "jenkinsFilePath": "matomo/Jenkinsfile",
           "uuid": "8c1bf2ae-7b11-4810-a571-8283f23684db"
+        },
+        "searchgate": {
+          "jenkinsJobName": "searchgate",
+          "github_owner": "bcgov",
+          "github_repo": "searchgate",
+          "jenkinsFilePath": "Jenkinsfile",
+          "uuid": "800fe2e9-f5b6-46af-9f53-2b21d8038ed1"
         }
       }
     }
