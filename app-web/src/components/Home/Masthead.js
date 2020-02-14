@@ -15,7 +15,7 @@ limitations under the License.
 
 Created by Patrick Simonian
 */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from 'gatsby';
 import styled from '@emotion/styled';
@@ -27,7 +27,8 @@ import { EMOTION_BOOTSTRAP_BREAKPOINTS, SPACING } from '../../constants/designTo
 import Search from '../Search';
 import AppLogo from '../UI/AppLogo/AppLogo';
 import { SearchSources } from '../Search/SearchSources';
-import { useAuthenticated } from '../../utils/hooks';
+import AuthContext from '../../AuthContext';
+import AlgoliaBrand from '../UI/AlgoliaBrand';
 
 const SearchStyled = styled(Search)`
   font-size: 1.25em;
@@ -65,16 +66,15 @@ const IconDiv = styled.div`
 `;
 export const TEST_IDS = {
   alertBox: 'Masthead.show',
+  algolia: 'Masthead.algolia',
 };
 
-export const Masthead = ({ query, resultCount, searchSourcesLoading }) => {
-  const { authenticated } = useAuthenticated();
-  const [isVisible, setVisible] = useState(query !== ''); // show only if user input query to search
-  const [alertHasBeenAcknowledged, setAlertHasBeenAcknowledged] = useState(true);
+export const Masthead = ({ query, searchSourcesLoading, location }) => {
+  const { isAuthenticated } = useContext(AuthContext);
+  const [alertHasBeenAcknowledged, setAlertHasBeenAcknowledged] = useState(false);
 
   const onDismiss = () => {
-    setAlertHasBeenAcknowledged(false);
-    setVisible(false);
+    setAlertHasBeenAcknowledged(true);
   };
 
   return (
@@ -113,21 +113,23 @@ export const Masthead = ({ query, resultCount, searchSourcesLoading }) => {
           query={query}
           inputConfig={SEARCH.INPUT}
           onSearch={terms => {
-            navigate(`/?q=${encodeURIComponent(terms)}`);
+            navigate(`${location.pathname}?q=${encodeURIComponent(terms.trim())}`);
           }}
         />
-        <IconDiv>{!searchSourcesLoading && query && resultCount > 0 && <SearchSources />}</IconDiv>
+        <IconDiv>{query && <SearchSources searchSourcesLoading={searchSourcesLoading} />}</IconDiv>
       </SearchContainer>
-      {!authenticated && alertHasBeenAcknowledged && (
+      {!isAuthenticated && !alertHasBeenAcknowledged && (
         <AlertMessage
           color="warning"
-          isOpen={isVisible}
-          toggle={onDismiss}
+          isOpen={query !== ''}
+          toggle={() => onDismiss()}
           data-testid={TEST_IDS.alertBox}
         >
-          You can view search results from applications like Rocket.Chat or Github when logged in.
+          You can view search results from applications like Rocket.Chat, Github or Documize when
+          logged in.
         </AlertMessage>
       )}
+      <AlgoliaBrand data-testid={TEST_IDS.algolia} style={{ paddingBottom: '5px' }} />
     </Container>
   );
 };
@@ -136,6 +138,7 @@ Masthead.propTypes = {
   query: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]),
   resultCount: PropTypes.number,
   searchSourcesLoading: PropTypes.bool,
+  location: PropTypes.shape({ pathname: PropTypes.string }),
 };
 
 export default Masthead;

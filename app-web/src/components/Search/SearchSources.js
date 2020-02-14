@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled';
-import { RCButton, GithubButton } from '../UI/Button/Button';
-import { useAuthenticated } from '../../utils/hooks';
+import { SearchSourcesButton } from '../UI/Button/Button';
 import { Link } from 'react-scroll';
 import { SEARCH_SOURCE_CONTENT } from '../DynamicSearchResults';
 import { SEARCH_SOURCES } from '../../constants/search';
+import PropTypes from 'prop-types';
+import AuthContext from '../../AuthContext';
 
 const StyledLink = styled(Link)`
+  margin: 0 5px;
+`;
+
+const StyledDiv = styled.div`
   margin: 0 5px;
 `;
 
@@ -22,38 +27,41 @@ export const TEST_IDS = {
   container: 'search.sources.container',
 };
 
-export const SearchSources = () => {
-  const { authenticated } = useAuthenticated();
+export const SearchSources = ({ searchSourcesLoading }) => {
+  const { isAuthenticated } = useContext(AuthContext);
+
   const iconProps = {};
 
-  if (!authenticated) {
+  if (!isAuthenticated || searchSourcesLoading) {
     iconProps.style = {
       opacity: 0.65,
-      margin: '0 2px',
       cursor: 'initial',
-      padding: '0 4px',
       boxSizing: 'content-box',
     };
   }
-
   const scrollOffset = -125;
 
-  return (
-    <SearchSourcesContainer data-testid={TEST_IDS.container}>
-      {authenticated ? (
-        <StyledLink to={SEARCH_SOURCE_CONTENT[SEARCH_SOURCES.rocketchat].id} offset={scrollOffset}>
-          <RCButton title="Click to jump to rocket chat search results" />
+  return Object.keys(SEARCH_SOURCES).map(element => (
+    <SearchSourcesContainer key={element} data-testid={TEST_IDS.container}>
+      {isAuthenticated && !searchSourcesLoading ? (
+        <StyledLink key={element} to={SEARCH_SOURCE_CONTENT[element].id} offset={scrollOffset}>
+          <SearchSourcesButton
+            searchType={element}
+            title={'Click to jump to ' + element + ' search results'}
+          ></SearchSourcesButton>
         </StyledLink>
       ) : (
-        <RCButton {...iconProps} title="Login to view rocket chat search results" />
-      )}
-      {authenticated ? (
-        <StyledLink to={SEARCH_SOURCE_CONTENT[SEARCH_SOURCES.github].id} offset={scrollOffset}>
-          <GithubButton title="Click to jump to Github search results" />
-        </StyledLink>
-      ) : (
-        <GithubButton {...iconProps} title="Login to view Github search results" />
+        <StyledDiv>
+          <SearchSourcesButton
+            searchType={element}
+            style={iconProps.style}
+            title={'Login in to view search results from ' + element}
+          ></SearchSourcesButton>
+        </StyledDiv>
       )}
     </SearchSourcesContainer>
-  );
+  ));
+};
+SearchSources.propTypes = {
+  searchSourcesLoading: PropTypes.bool,
 };

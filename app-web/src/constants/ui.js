@@ -9,7 +9,10 @@ export const RESOURCE_TYPES = {
 
 export const SEARCH_RESOURCE_TYPES = {
   GITHUB_ISSUE: 'Github Issue',
+  DOCUMIZE: 'Documize',
 };
+
+export const JOURNEY = 'Journey';
 // not exactly a resource type but still an important identifier for a 'type' of devhub node
 // this will change in devhub v3 when all nodes, resources/topics/and more are treated as
 // equal
@@ -18,7 +21,9 @@ export const TOPICS = 'Topics';
 export const RESOURCE_TYPES_LIST = Object.keys(RESOURCE_TYPES)
   .map(key => RESOURCE_TYPES[key])
   .concat(TOPICS)
-  .concat(SEARCH_RESOURCE_TYPES.GITHUB_ISSUE);
+  .concat(JOURNEY)
+  .concat(SEARCH_RESOURCE_TYPES.GITHUB_ISSUE)
+  .concat(SEARCH_RESOURCE_TYPES.DOCUMIZE);
 
 export const PERSONAS_LIST = ['Developer', 'Designer', 'Product Owner'];
 
@@ -91,10 +96,12 @@ export const DYNAMIC_TOPIC_PATHS = {
 // an expressed in order by this object
 // this is a lookup table to easily identify which resources are considered featured
 export const FEATURED_CONTENT = [
+  'Exchange Lab Ops Learning Programs',
   'BC Developers Exchange',
   'Chat Channel Conventions',
   'Steps to join Pathfinder Rocket.Chat',
   '12 Factor Apps',
+  'Contributing To The Devhub',
   'Progressive Web Apps',
   'Documize',
   'What is Pathfinder?',
@@ -104,3 +111,5 @@ export const FEATURE_TOPIC_CONFIGURATION = {
   name: 'Featured Resources',
   description: 'A selection of resources we think you will want to know about',
 };
+
+export const JOURNEY_TOPIC_VIEW_MODES = { card: 'cards', list: 'list' };

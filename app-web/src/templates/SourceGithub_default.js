@@ -38,6 +38,7 @@ import {
   SidePanel,
   MarkdownBody,
 } from '../components/GithubTemplate/common';
+import { SEO } from '../components/SEO/SEO';
 
 class SourceGithubMarkdownDefault extends React.Component {
   state = {
@@ -69,6 +70,7 @@ class SourceGithubMarkdownDefault extends React.Component {
 
     return (
       <Layout>
+        <SEO title={title} />
         <div>
           <Masthead type="Topics" title={topic.name} description={topic.description} />
           <Main>
@@ -125,11 +127,11 @@ export const devhubSiphonMarkdown = graphql`
         pagePaths
       }
     }
-    topic: devhubTopic(id: { eq: $topicId }) {
+    topic: topicRegistryJson(id: { eq: $topicId }) {
       name
       description
     }
-    nav: devhubTopic(id: { eq: $topicId }) {
+    nav: topicRegistryJson(id: { eq: $topicId }) {
       items: connectsWith {
         ...DevhubNodeConnection
       }

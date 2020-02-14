@@ -49,7 +49,7 @@ const resolvePath = path => resolve(__dirname, path);
 const createResourceInTopicsPages = (node, createPage) => {
   node.fields.pagePaths.forEach((path, ind) => {
     const topic = node.fields.topics[ind];
-    const template = getTemplate(topic._metadata.template, topic._metadata.templateFile);
+    const template = getTemplate(topic.fields.template);
 
     createPage({
       path: `${path}`,
@@ -125,6 +125,70 @@ const createResourceTypePages = createPage => {
 };
 
 /**
+ * Creates all journey views
+ * @param {Function} createPage the gatsby createpage function
+ */
+const createJourneyPage = (node, createPage) => {
+  const template = resolvePath('../src/templates/JourneyEntry_default.js');
+
+  createPage({
+    path: node.fields.slug,
+    context: {
+      id: node.id,
+      name: node.name,
+    },
+    component: template,
+  });
+};
+
+const createJourneyStopPage = (node, journeyId, createPage) => {
+  const templateMappings = {
+    GithubRaw: resolvePath('../src/templates/JourneyGithub_default.js'),
+  };
+
+  createPage({
+    path: node.path,
+    context: {
+      id: journeyId,
+      githubId: node.id,
+    },
+    component: templateMappings[node._type],
+  });
+};
+
+const createJourneyPages = async (createPage, graphql) => {
+  const data = await graphql(`
+    {
+      allJourneyRegistryJson {
+        edges {
+          node {
+            id
+            name
+            fields {
+              slug
+            }
+            connectsWith {
+              path
+              id
+              _type
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  data.data.allJourneyRegistryJson.edges.forEach(({ node }) => {
+    // create the main journey page
+    createJourneyPage(node, createPage);
+
+    // for each 'stop' in the journey create a page
+    node.connectsWith.forEach(connection => {
+      createJourneyStopPage(connection, node.id, createPage);
+    });
+  });
+};
+/**
  * creates all the resource pages based on the topic the resource belongs too
  * @param {Function} createPage the gatsby createpage function
  * @param {Function} graphql the gatsby graphql function
@@ -141,9 +205,8 @@ const createResourceTopicsPages = async (createPage, graphql) => {
               pagePaths
               topics {
                 id
-                _metadata {
+                fields {
                   template
-                  templateFile
                 }
               }
             }
@@ -201,37 +264,32 @@ const createStandAlonePage = async (createPage, graphql) => {
  * is creates a placeholder page
  * @param {Function} createPage the gatsby createpage function
  */
-const createEventsPage = createPage => {
-  let component = resolvePath('../src/templates/events.js');
-
+const createEventsPage = async createPage => {
+  let eventComponent = resolvePath('../src/templates/events.js');
+  let pastEventComponent = resolvePath('../src/templates/pastEvents.js');
   //if (!process.env.EVENT_BRITE_API_KEY || !process.env.MEETUP_API_KEY) {
   if (!process.env.EVENT_BRITE_API_KEY) {
-    component = resolvePath('../src/templates/TemplatePlaceholder.js');
+    eventComponent = resolvePath('../src/templates/TemplatePlaceholder.js');
+    pastEventComponent = resolvePath('../src/templates/TemplatePlaceholder.js');
   }
 
   createPage({
     path: 'events',
-    component,
+    component: eventComponent,
   });
-};
-const createPastEventsPage = createPage => {
-  let component = resolvePath('../src/templates/pastEvents.js');
-
-  //if (!process.env.EVENT_BRITE_API_KEY || !process.env.MEETUP_API_KEY) {
-  if (!process.env.EVENT_BRITE_API_KEY) {
-    component = resolvePath('../src/templates/TemplatePlaceholder.js');
-  }
 
   createPage({
     path: 'past-events',
-    component,
+    component: pastEventComponent,
   });
 };
+
 module.exports = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  createResourceTypePages(createPage);
-  createResourceTopicsPages(createPage, graphql);
-  createEventsPage(createPage);
-  createPastEventsPage(createPage);
-  createStandAlonePage(createPage, graphql);
+
+  await createResourceTypePages(createPage);
+  await createResourceTopicsPages(createPage, graphql);
+  await createEventsPage(createPage);
+  await createStandAlonePage(createPage, graphql);
+  await createJourneyPages(createPage, graphql);
 };

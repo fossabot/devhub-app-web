@@ -22,10 +22,7 @@ const withResourceQuery = WrappedComponent => () => props => (
   <StaticQuery
     query={graphql`
       query resourceQuery {
-        siteSearchIndex {
-          index
-        }
-        allGithubRaw {
+        allGithubRaw(filter: { fields: { pageOnly: { eq: false } } }) {
           edges {
             node {
               id
@@ -66,47 +63,29 @@ const withResourceQuery = WrappedComponent => () => props => (
             }
           }
         }
-        allDevhubTopic {
+        allJourneyRegistryJson {
+          edges {
+            node {
+              id
+              name
+              fields {
+                slug
+                description
+              }
+              connectsWith {
+                ...JourneyNodeConnection
+              }
+            }
+          }
+        }
+        allTopicRegistryJson {
           edges {
             node {
               id
               name
               description
-              fields {
-                githubRaw {
-                  id
-                  fields {
-                    resourceType
-                    title
-                    description
-                    image
-                    slug
-                  }
-                }
-              }
               connectsWith {
                 ...DevhubNodeConnection
-              }
-              childrenDevhubSiphon {
-                id
-                resource {
-                  type
-                  path
-                }
-                _metadata {
-                  position
-                }
-                unfurl {
-                  title
-                  description
-                  image
-                }
-                fields {
-                  resourceType
-                  pagePaths
-                  title
-                  description
-                }
               }
             }
           }
@@ -216,10 +195,7 @@ const withResourceQuery = WrappedComponent => () => props => (
                 type
               }
               source {
-                displayName
-                sourcePath
                 type
-                name
               }
               resource {
                 path
@@ -231,11 +207,6 @@ const withResourceQuery = WrappedComponent => () => props => (
                 type
                 image
                 author
-              }
-              childMarkdownRemark {
-                frontmatter {
-                  pageOnly
-                }
               }
             }
           }

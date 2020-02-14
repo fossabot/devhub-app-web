@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import rocketchatSVG from '../../../assets/images/rocketchat_logo.svg';
 import githubPNG from '../../../assets/images/github_logo.png';
+import DocumizePNG from '../../../assets/images/documize_logo.png';
+import { SEARCH_SOURCES } from '../../../constants/search';
 
 const StyledButton = styled.button`
   color: #fff;
@@ -33,6 +35,10 @@ const variants = {
   link: 'link',
 };
 
+export const TEST_IDS = {
+  button: 'button',
+};
+
 export const Button = ({ variant, children, clicked, ...rest }) => {
   const colors = {
     [variants.primary]: 'blue',
@@ -47,6 +53,7 @@ export const Button = ({ variant, children, clicked, ...rest }) => {
           outline: 'none',
           color: 'inherit',
         }}
+        data-testid={TEST_IDS.button}
         {...rest}
       >
         {children}
@@ -54,7 +61,12 @@ export const Button = ({ variant, children, clicked, ...rest }) => {
     );
   } else {
     return (
-      <StyledButton onClick={clicked} {...rest} color={colors[variant]}>
+      <StyledButton
+        onClick={clicked}
+        color={colors[variant]}
+        data-testid={TEST_IDS.button}
+        {...rest}
+      >
         {children}
       </StyledButton>
     );
@@ -86,16 +98,26 @@ export const IconButton = styled.button`
   }
 `;
 
-export const RCButton = ({ ...props }) => (
+const SEARCH_SOURCES_ICON = {
+  [SEARCH_SOURCES.rocketchat]: rocketchatSVG,
+  [SEARCH_SOURCES.github]: githubPNG,
+  [SEARCH_SOURCES.documize]: DocumizePNG,
+};
+
+export const SearchSourcesButton = props => (
   <IconButton {...props}>
-    <img src={rocketchatSVG} style={{ margin: 0 }} alt={'RocketChat logo'} />
+    <img
+      src={SEARCH_SOURCES_ICON[props.searchType]}
+      style={{ margin: 0 }}
+      alt={props.searchType + ' logo'}
+    />
   </IconButton>
 );
 
-export const GithubButton = ({ ...props }) => (
-  <IconButton {...props}>
-    <img src={githubPNG} style={{ margin: 0 }} alt={'RocketChat logo'} />
-  </IconButton>
-);
+SearchSourcesButton.propTypes = {
+  searchType: PropTypes.string.isRequired,
+  style: PropTypes.object,
+  title: PropTypes.string.isRequired,
+};
 
 export default Button;

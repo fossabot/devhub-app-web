@@ -1,12 +1,12 @@
 import {
   isMarkdownRemark,
-  isDevhubTopic,
   isDevhubSiphon,
   isEventbriteEvents,
   isGithubRaw,
   isMeetupEvent,
   isMarkdownRemarkFrontmatter,
-  isRegistryJson,
+  isTopicRegistryJson,
+  verifyJourney,
 } from '../../gatsby/utils/validators';
 
 describe('Validators', () => {
@@ -16,9 +16,6 @@ describe('Validators', () => {
     test('they return true when valid', () => {
       expect(isMarkdownRemark(node('MarkdownRemark'))).toBe(true);
       expect(isMarkdownRemark(node('MarkdownRemark2'))).toBe(false);
-
-      expect(isDevhubTopic(node('DevhubTopic'))).toBe(true);
-      expect(isDevhubTopic(node('DevhubTopic2'))).toBe(false);
 
       expect(isDevhubSiphon(node('DevhubSiphon'))).toBe(true);
       expect(isDevhubSiphon(node('DevhubSiphon2'))).toBe(false);
@@ -35,8 +32,73 @@ describe('Validators', () => {
       expect(isMarkdownRemarkFrontmatter(node('MarkdownRemarkFrontmatter'))).toBe(true);
       expect(isMarkdownRemarkFrontmatter(node('MarkdownRemarkFrontmatter2'))).toBe(false);
 
-      expect(isRegistryJson(node('RegistryJson'))).toBe(true);
-      expect(isRegistryJson(node('RegistryJson2'))).toBe(false);
+      expect(isTopicRegistryJson(node('TopicRegistryJson'))).toBe(true);
+      expect(isTopicRegistryJson(node('RegistryJson2'))).toBe(false);
+    });
+  });
+
+  describe('Validating a journey', () => {
+    it('throws if github.sourceProperties.files param is used', () => {
+      const invalidJourney1 = {
+        name: 'foo',
+        sourceProperties: {
+          stops: [
+            {
+              sourceType: 'github',
+              sourceProperties: {
+                files: ['oops'],
+              },
+            },
+          ],
+        },
+      };
+
+      const validJourney1 = {
+        name: 'foo',
+        sourceProperties: {
+          stops: [
+            {
+              sourceType: 'github',
+              sourceProperties: {
+                file: 'hello',
+              },
+              stops: [
+                {
+                  sourceType: 'github',
+                  sourceProperties: {
+                    files: ['foo'],
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      };
+
+      const validJourney2 = {
+        name: 'foo',
+        sourceProperties: {
+          stops: [
+            {
+              sourceType: 'github',
+              sourceProperties: {
+                file: 'hello',
+              },
+              stops: [
+                {
+                  sourceType: 'github',
+                  sourceProperties: {
+                    file: 'foo',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      };
+      expect(() => verifyJourney(invalidJourney1)).toThrow();
+      expect(() => verifyJourney(validJourney1)).not.toThrow();
+      expect(() => verifyJourney(validJourney2)).not.toThrow();
     });
   });
 });

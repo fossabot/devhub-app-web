@@ -1,21 +1,23 @@
 import React from 'react';
-import { render, cleanup, fireEvent } from 'react-testing-library';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import Masthead, { TEST_IDS } from '../../src/components/Home/Masthead';
 import { ThemeProvider } from 'emotion-theming';
 import theme from '../../theme';
-import { useAuthenticated } from '../../src/utils/hooks';
-import 'jest-dom/extend-expect';
-
+import { useImplicitAuth } from '../../src/utils/hooks';
+import { AuthProvider } from '../../src/AuthContext';
 jest.mock('../../src/utils/hooks');
 describe('Masthead Component', () => {
   afterEach(cleanup);
-
+  // jwt time stamps are in seconds. dividing by 1000 to convert date.now ms to s
+  const currentDate = Date.now() / 1000;
   it('It shows an alert window when a search has happened', () => {
-    useAuthenticated.mockReturnValue({ authenticated: false });
+    useImplicitAuth.mockReturnValue({});
 
     const { queryByTestId, rerender } = render(
       <ThemeProvider theme={theme}>
-        <Masthead query={'openshift'} searchSourcesLoading={true} resultCount={12} />
+        <AuthProvider>
+          <Masthead query={'openshift'} searchSourcesLoading={true} />
+        </AuthProvider>
       </ThemeProvider>,
     );
     const alert = queryByTestId(TEST_IDS.alertBox);
@@ -23,18 +25,22 @@ describe('Masthead Component', () => {
 
     rerender(
       <ThemeProvider theme={theme}>
-        <Masthead query={'devop'} searchSourcesLoading={true} resultCount={0} />
+        <AuthProvider>
+          <Masthead query={'devop'} searchSourcesLoading={true} />
+        </AuthProvider>
       </ThemeProvider>,
     );
     expect(alert).toBeInTheDocument();
 
-    const closebtn = alert.querySelector('button');
-    fireEvent.click(closebtn);
+    const closeBtn = alert.querySelector('button');
+    fireEvent.click(closeBtn);
     expect(alert).not.toBeInTheDocument();
 
     rerender(
       <ThemeProvider theme={theme}>
-        <Masthead query={'happy'} searchSourcesLoading={true} resultCount={0} />
+        <AuthProvider>
+          <Masthead query={'happy'} searchSourcesLoading={true} />
+        </AuthProvider>
       </ThemeProvider>,
     );
 
@@ -42,18 +48,27 @@ describe('Masthead Component', () => {
   });
 
   it('The alert box does not show when authenticated', () => {
-    useAuthenticated.mockReturnValue({ authenticated: true });
-
+    useImplicitAuth.mockReturnValue({
+      idToken: {
+        data: {
+          exp: currentDate + 50000,
+        },
+      },
+    });
     const { queryByTestId, rerender } = render(
       <ThemeProvider theme={theme}>
-        <Masthead query={'openshift'} searchSourcesLoading={true} resultCount={12} />
+        <AuthProvider>
+          <Masthead query={'openshift'} searchSourcesLoading={true} />
+        </AuthProvider>
       </ThemeProvider>,
     );
     const alert = queryByTestId(TEST_IDS.alertBox);
     expect(alert).not.toBeInTheDocument();
     rerender(
       <ThemeProvider theme={theme}>
-        <Masthead query={'happy'} searchSourcesLoading={true} resultCount={0} />
+        <AuthProvider>
+          <Masthead query={'happy'} searchSourcesLoading={true} />
+        </AuthProvider>
       </ThemeProvider>,
     );
 

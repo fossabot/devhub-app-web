@@ -29,11 +29,15 @@ const Header = styled.header`
   border-bottom: 1px solid #ccc;
   ${withPadding}
 `;
+export const TEST_IDS = {
+  header: 'github.topic.masthead',
+};
 
-const Masthead = ({ title, description, type }) => (
-  <Header>
+const Masthead = ({ title, description, type, render }) => (
+  <Header data-testid={TEST_IDS.header}>
     <CardHeader resourceType={type} />
     <Title title={title} subtitle={description} />
+    {render && render()}
   </Header>
 );
 
@@ -41,6 +45,7 @@ Masthead.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   type: PropTypes.oneOf(RESOURCE_TYPES_LIST),
+  render: PropTypes.func,
 };
 
 Masthead.defaultProps = {

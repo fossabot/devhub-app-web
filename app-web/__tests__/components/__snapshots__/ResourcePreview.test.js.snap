@@ -1,454 +1,917 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Resource Preview Component it matches snapshot 1`] = `
-<Container
+exports[`Resource Preview Component matches snapshot 1`] = `
+.emotion-163 {
+  margin: 0 auto 15px;
+  max-width: 1100px;
+  width: 100%;
+}
+
+.emotion-15 {
+  padding: 10px 4px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  border-bottom: 1px solid #ccc;
+}
+
+.emotion-15 h2 {
+  font-weight: 400;
+  text-transform: capitalize;
+  padding: 0 20px 0 0;
+  margin: 0 2px;
+  margin-top: 5px;
+}
+
+.emotion-3 {
+  padding: 3px;
+  border-radius: 1em;
+  color: rgba(0,0,0,0.87);
+  margin: 4px 5px;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-color: transparent;
+  border-width: 1px;
+  border-style: solid;
+  background-color: #e0e0e0;
+}
+
+.emotion-3:focus {
+  outline: none;
+}
+
+.emotion-3 > span {
+  margin: 0 4px;
+  font-size: 0.875em;
+}
+
+@media only screen and (max-width:768px) {
+  .emotion-3 {
+    font-size: 15px;
+  }
+}
+
+.emotion-3:hover {
+  background: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #e0e0e0;
+  top: -3px;
+}
+
+.emotion-0 {
+  margin: 0 4px;
+}
+
+.emotion-5 {
+  padding-left: 5px;
+}
+
+.emotion-157 {
+  padding: 15px 0;
+}
+
+.emotion-155 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+@media (min-width:810px) {
+  .emotion-155 {
+    -webkit-box-pack: start;
+    -webkit-justify-content: start;
+    -ms-flex-pack: start;
+    justify-content: start;
+  }
+}
+
+.emotion-38 {
+  margin: 0 10px;
+  -webkit-flex: 0 0 250px;
+  -ms-flex: 0 0 250px;
+  flex: 0 0 250px;
+}
+
+.emotion-36 {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #1A5A96;
+  font-weight: 400;
+  text-transform: capitalize;
+  padding: 0 4px;
+  margin: 0 2px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: initial;
+}
+
+.emotion-36:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: initial;
+  cursor: pointer;
+}
+
+.emotion-33 {
+  width: 265px;
+  height: 238.5px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-top: transparent;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -webkit-transition: -webkit-transform 0.25s ease-out;
+  -webkit-transition: transform 0.25s ease-out;
+  transition: transform 0.25s ease-out;
+  box-shadow: 0 1px 2px 1px #00000026;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+  overflow: hidden;
+}
+
+.emotion-33:hover {
+  box-shadow: 0 2px 2px 1px #00000026;
+  -webkit-transform: translateY(-2px);
+  -ms-transform: translateY(-2px);
+  transform: translateY(-2px);
+}
+
+.emotion-17 {
+  background-color: #4299D2;
+  -webkit-flex: 0 0 10px;
+  -ms-flex: 0 0 10px;
+  flex: 0 0 10px;
+  min-height: 10px;
+}
+
+.emotion-31 {
+  padding: 6px 10px;
+  height: 100%;
+  overflow: auto;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-flex-flow: column nowrap;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+}
+
+.emotion-21 {
+  color: #444;
+  font-size: 15px;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-weight: 400;
+}
+
+.emotion-19 {
+  color: #4299D2;
+}
+
+.emotion-23 {
+  font-size: 18px;
+  color: #494949;
+  line-height: 1.3;
+  margin-bottom: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  text-transform: capitalize;
+  word-break: break-word;
+}
+
+.emotion-25 {
+  line-height: 1.4;
+  font-size: 14px;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  margin-bottom: 0;
+  margin-top: 4px;
+  text-transform: none;
+}
+
+.emotion-29 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  overflow: hidden;
+  padding-top: 10px;
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-27 {
+  width: 100%;
+  height: auto;
+  object-fit: scale-down;
+  max-height: 100%;
+  margin-bottom: 0;
+}
+
+.emotion-109 {
+  background-color: #246BD1;
+  -webkit-flex: 0 0 10px;
+  -ms-flex: 0 0 10px;
+  flex: 0 0 10px;
+  min-height: 10px;
+}
+
+.emotion-111 {
+  color: #246BD1;
+}
+
+.emotion-161 {
+  text-align: right;
+  margin-top: 15px;
+}
+
+.emotion-159 {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #1A5A96;
+  font-weight: 400;
+  text-transform: capitalize;
+  padding: 0 4px;
+  margin: 0 2px;
+}
+
+<section
+  class="emotion-163 emotion-164"
   data-testid="resource-preview-container"
 >
-  <PreviewHeader>
+  <div
+    class="emotion-15 emotion-16"
+  >
     <h2>
       foo
     </h2>
-  </PreviewHeader>
-  <ResourceContainer>
-    <Row>
-      <Col
-        key="3"
-        style={
-          Object {
-            "display": "flex",
-            "justifyContent": "center",
-          }
-        }
+    <button
+      class="emotion-2 emotion-3 emotion-4"
+      data-active="true"
+      data-testid="resource-preview-pill-all"
+      title="Click to view all results"
+    >
+      <svg
+        aria-hidden="true"
+        class="svg-inline--fa fa-search fa-w-16  emotion-0 emotion-1"
+        data-icon="search"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <Card
-          description="What the Design System is and how it works."
-          event={
-            Object {
-              "_metadata": Object {
-                "position": "000.000.002",
-              },
-              "attributes": Object {
-                "personas": Array [
-                  "Designer",
-                ],
-              },
-              "childMarkdownRemark": Object {
-                "frontmatter": Object {
-                  "pageOnly": false,
-                },
-              },
-              "fields": Object {
-                "author": "ksingbeil",
-                "description": "What the Design System is and how it works.",
-                "image": "https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true",
-                "pagePaths": Array [
-                  "/design-system/Z1bGIqu3",
-                ],
-                "personas": Array [
-                  "Designer",
-                ],
-                "resourceType": "Components",
-                "standAlonePath": "/Design-Node-3",
-                "title": "About",
-              },
-              "id": "3",
-              "parent": Object {
-                "id": "topic-1",
-              },
-              "resource": Object {
-                "path": "/design-system/Z1bGIqu3",
-                "type": "Components",
-              },
-              "source": Object {
-                "displayName": "Design System",
-              },
-              "unfurl": Object {
-                "author": "ksingbeil",
-                "data1": "",
-                "data2": "",
-                "description": "What the Design System is and how it works.",
-                "image": "https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true",
-                "label1": "",
-                "label2": "",
-                "title": "About",
-                "type": "markdown",
-              },
-            }
-          }
-          image="https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true"
-          key="3"
-          link="/Design-Node-3"
-          resourceType="Components"
-          title="About"
+        <path
+          d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+          fill="currentColor"
         />
-      </Col>
-      <Col
-        key="2"
-        style={
-          Object {
-            "display": "flex",
-            "justifyContent": "center",
-          }
-        }
+      </svg>
+      <span>
+        All 7 Results
+      </span>
+    </button>
+    <button
+      class="emotion-2 emotion-3 emotion-4"
+      data-active="false"
+      data-resourcetype="Foo"
+      data-testclass="resource-preview-pill"
+      data-testid="resource-preview-pill-Foo"
+      title="Click to show Foo search results"
+    >
+      <div
+        class="emotion-5 emotion-6"
+      />
+      <span>
+        No Search Result
+      </span>
+    </button>
+    <button
+      class="emotion-2 emotion-3 emotion-4"
+      data-active="false"
+      data-resourcetype="Bar"
+      data-testclass="resource-preview-pill"
+      data-testid="resource-preview-pill-Bar"
+      title="Click to show Bar search results"
+    >
+      <div
+        class="emotion-5 emotion-6"
+      />
+      <span>
+        No Search Result
+      </span>
+    </button>
+  </div>
+  <div
+    class="emotion-157 emotion-158"
+  >
+    <div
+      class="emotion-155 emotion-156"
+    >
+      <div
+        class="emotion-38 emotion-39"
+        style="justify-content: center; display: flex;"
       >
-        <Card
-          description="What the Design System is and how it works."
-          event={
-            Object {
-              "_metadata": Object {
-                "position": "000.000.001",
-              },
-              "attributes": Object {
-                "personas": Array [
-                  "Developer",
-                  "Designer",
-                ],
-              },
-              "childMarkdownRemark": Object {
-                "frontmatter": Object {
-                  "pageOnly": false,
-                },
-              },
-              "fields": Object {
-                "author": "ksingbeil",
-                "description": "What the Design System is and how it works.",
-                "image": "https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true",
-                "pagePaths": Array [
-                  "/design-system/Z1bGIqu2",
-                ],
-                "personas": Array [
-                  "Developer",
-                  "Designer",
-                ],
-                "resourceType": "Components",
-                "standAlonePath": "/Design-Node-2",
-                "title": "About",
-              },
-              "id": "2",
-              "parent": Object {
-                "id": "topic-1",
-              },
-              "resource": Object {
-                "path": "/design-system/Z1bGIqu2",
-                "type": "Components",
-              },
-              "source": Object {
-                "displayName": "Design System",
-              },
-              "unfurl": Object {
-                "author": "ksingbeil",
-                "data1": "",
-                "data2": "",
-                "description": "What the Design System is and how it works.",
-                "image": "https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true",
-                "label1": "",
-                "label2": "",
-                "title": "About",
-                "type": "markdown",
-              },
-            }
-          }
-          image="https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true"
-          key="2"
-          link="/Design-Node-2"
-          resourceType="Components"
-          title="About"
-        />
-      </Col>
-      <Col
-        key="1"
-        style={
-          Object {
-            "display": "flex",
-            "justifyContent": "center",
-          }
-        }
+        <a
+          class="emotion-35 emotion-36 emotion-37"
+          data-testid="ui-gatsby-link"
+          href="/Design-Node-3"
+        >
+          <article
+            class="emotion-33 emotion-34"
+            data-resourcetype="Components"
+          >
+            <div
+              class="emotion-17 emotion-18"
+              color="Components"
+            />
+            <div
+              class="emotion-31 emotion-32"
+            >
+              <div
+                style="margin-bottom: 6px;"
+              >
+                <h3
+                  class="emotion-21 emotion-22"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="svg-inline--fa fa-puzzle-piece fa-w-18  emotion-19 emotion-20"
+                    data-icon="puzzle-piece"
+                    data-prefix="fas"
+                    data-testid="resource-type-icon"
+                    focusable="false"
+                    role="img"
+                    type="Components"
+                    viewBox="0 0 576 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M519.442 288.651c-41.519 0-59.5 31.593-82.058 31.593C377.409 320.244 432 144 432 144s-196.288 80-196.288-3.297c0-35.827 36.288-46.25 36.288-85.985C272 19.216 243.885 0 210.539 0c-34.654 0-66.366 18.891-66.366 56.346 0 41.364 31.711 59.277 31.711 81.75C175.885 207.719 0 166.758 0 166.758v333.237s178.635 41.047 178.635-28.662c0-22.473-40-40.107-40-81.471 0-37.456 29.25-56.346 63.577-56.346 33.673 0 61.788 19.216 61.788 54.717 0 39.735-36.288 50.158-36.288 85.985 0 60.803 129.675 25.73 181.23 25.73 0 0-34.725-120.101 25.827-120.101 35.962 0 46.423 36.152 86.308 36.152C556.712 416 576 387.99 576 354.443c0-34.199-18.962-65.792-56.558-65.792z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span
+                    style="margin: 4px;"
+                  >
+                    Component
+                  </span>
+                  <small>
+                    <svg
+                      aria-hidden="true"
+                      class="svg-inline--fa fa-external-link-alt fa-w-16 "
+                      data-icon="external-link-alt"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </small>
+                </h3>
+              </div>
+              <div
+                class="emotion-23 emotion-24"
+              >
+                About
+              </div>
+              <p
+                class="emotion-25 emotion-26"
+              >
+                What the Design System is and how it works.
+              </p>
+              <div
+                class="emotion-29 emotion-30"
+              >
+                <img
+                  alt="About"
+                  class="emotion-27 emotion-28"
+                  src="https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true"
+                />
+              </div>
+            </div>
+          </article>
+        </a>
+      </div>
+      <div
+        class="emotion-38 emotion-39"
+        style="justify-content: center; display: flex;"
       >
-        <Card
-          description="What the Design System is and how it works."
-          event={
-            Object {
-              "_metadata": Object {
-                "position": "000.000.000",
-              },
-              "attributes": Object {
-                "personas": Array [
-                  "Designer",
-                ],
-              },
-              "childMarkdownRemark": Object {
-                "frontmatter": Object {
-                  "pageOnly": false,
-                },
-              },
-              "fields": Object {
-                "author": "ksingbeil",
-                "description": "What the Design System is and how it works.",
-                "image": "https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true",
-                "pagePaths": Array [
-                  "/design-system/Z1bGIqu1",
-                ],
-                "personas": Array [
-                  "Designer",
-                ],
-                "resourceType": "Components",
-                "standAlonePath": "/Design-Node-1",
-                "title": "About",
-              },
-              "id": "1",
-              "parent": Object {
-                "id": "topic-1",
-              },
-              "resource": Object {
-                "path": "/design-system/Z1bGIqu1",
-                "type": "Components",
-              },
-              "source": Object {
-                "displayName": "Design System",
-              },
-              "unfurl": Object {
-                "author": "ksingbeil",
-                "data1": "",
-                "data2": "",
-                "description": "What the Design System is and how it works.",
-                "image": "https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true",
-                "label1": "",
-                "label2": "",
-                "title": "About",
-                "type": "markdown",
-              },
-            }
-          }
-          image="https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true"
-          key="1"
-          link="/Design-Node-1"
-          resourceType="Components"
-          title="About"
-        />
-      </Col>
-      <Col
-        key="4"
-        style={
-          Object {
-            "display": "flex",
-            "justifyContent": "center",
-          }
-        }
+        <a
+          class="emotion-35 emotion-36 emotion-37"
+          data-testid="ui-gatsby-link"
+          href="/Design-Node-2"
+        >
+          <article
+            class="emotion-33 emotion-34"
+            data-resourcetype="Components"
+          >
+            <div
+              class="emotion-17 emotion-18"
+              color="Components"
+            />
+            <div
+              class="emotion-31 emotion-32"
+            >
+              <div
+                style="margin-bottom: 6px;"
+              >
+                <h3
+                  class="emotion-21 emotion-22"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="svg-inline--fa fa-puzzle-piece fa-w-18  emotion-19 emotion-20"
+                    data-icon="puzzle-piece"
+                    data-prefix="fas"
+                    data-testid="resource-type-icon"
+                    focusable="false"
+                    role="img"
+                    type="Components"
+                    viewBox="0 0 576 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M519.442 288.651c-41.519 0-59.5 31.593-82.058 31.593C377.409 320.244 432 144 432 144s-196.288 80-196.288-3.297c0-35.827 36.288-46.25 36.288-85.985C272 19.216 243.885 0 210.539 0c-34.654 0-66.366 18.891-66.366 56.346 0 41.364 31.711 59.277 31.711 81.75C175.885 207.719 0 166.758 0 166.758v333.237s178.635 41.047 178.635-28.662c0-22.473-40-40.107-40-81.471 0-37.456 29.25-56.346 63.577-56.346 33.673 0 61.788 19.216 61.788 54.717 0 39.735-36.288 50.158-36.288 85.985 0 60.803 129.675 25.73 181.23 25.73 0 0-34.725-120.101 25.827-120.101 35.962 0 46.423 36.152 86.308 36.152C556.712 416 576 387.99 576 354.443c0-34.199-18.962-65.792-56.558-65.792z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span
+                    style="margin: 4px;"
+                  >
+                    Component
+                  </span>
+                  <small>
+                    <svg
+                      aria-hidden="true"
+                      class="svg-inline--fa fa-external-link-alt fa-w-16 "
+                      data-icon="external-link-alt"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </small>
+                </h3>
+              </div>
+              <div
+                class="emotion-23 emotion-24"
+              >
+                About
+              </div>
+              <p
+                class="emotion-25 emotion-26"
+              >
+                What the Design System is and how it works.
+              </p>
+              <div
+                class="emotion-29 emotion-30"
+              >
+                <img
+                  alt="About"
+                  class="emotion-27 emotion-28"
+                  src="https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true"
+                />
+              </div>
+            </div>
+          </article>
+        </a>
+      </div>
+      <div
+        class="emotion-38 emotion-39"
+        style="justify-content: center; display: flex;"
       >
-        <Card
-          description="What the Design System is and how it works."
-          event={
-            Object {
-              "_metadata": Object {
-                "position": "000.000.003",
-              },
-              "attributes": Object {
-                "personas": Array [
-                  "Developer",
-                ],
-              },
-              "childMarkdownRemark": Object {
-                "frontmatter": Object {
-                  "pageOnly": false,
-                },
-              },
-              "fields": Object {
-                "author": "ksingbeil",
-                "description": "What the Design System is and how it works.",
-                "image": "https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true",
-                "pagePaths": Array [
-                  "/design-system/Z1bGIqu4",
-                ],
-                "personas": Array [
-                  "Developer",
-                ],
-                "resourceType": "Components",
-                "standAlonePath": "/Design-Node-4",
-                "title": "About",
-              },
-              "id": "4",
-              "parent": Object {
-                "id": "topic-1",
-              },
-              "resource": Object {
-                "path": "/design-system/Z1bGIqu4",
-                "type": "Components",
-              },
-              "source": Object {
-                "displayName": "Design System",
-              },
-              "unfurl": Object {
-                "author": "ksingbeil",
-                "data1": "",
-                "data2": "",
-                "description": "What the Design System is and how it works.",
-                "image": "https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true",
-                "label1": "",
-                "label2": "",
-                "title": "About",
-                "type": "markdown",
-              },
-            }
-          }
-          image="https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true"
-          key="4"
-          link="/Design-Node-4"
-          resourceType="Components"
-          title="About"
-        />
-      </Col>
-      <Col
-        key="5"
-        style={
-          Object {
-            "display": "flex",
-            "justifyContent": "center",
-          }
-        }
+        <a
+          class="emotion-35 emotion-36 emotion-37"
+          data-testid="ui-gatsby-link"
+          href="/Design-Node-1"
+        >
+          <article
+            class="emotion-33 emotion-34"
+            data-resourcetype="Components"
+          >
+            <div
+              class="emotion-17 emotion-18"
+              color="Components"
+            />
+            <div
+              class="emotion-31 emotion-32"
+            >
+              <div
+                style="margin-bottom: 6px;"
+              >
+                <h3
+                  class="emotion-21 emotion-22"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="svg-inline--fa fa-puzzle-piece fa-w-18  emotion-19 emotion-20"
+                    data-icon="puzzle-piece"
+                    data-prefix="fas"
+                    data-testid="resource-type-icon"
+                    focusable="false"
+                    role="img"
+                    type="Components"
+                    viewBox="0 0 576 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M519.442 288.651c-41.519 0-59.5 31.593-82.058 31.593C377.409 320.244 432 144 432 144s-196.288 80-196.288-3.297c0-35.827 36.288-46.25 36.288-85.985C272 19.216 243.885 0 210.539 0c-34.654 0-66.366 18.891-66.366 56.346 0 41.364 31.711 59.277 31.711 81.75C175.885 207.719 0 166.758 0 166.758v333.237s178.635 41.047 178.635-28.662c0-22.473-40-40.107-40-81.471 0-37.456 29.25-56.346 63.577-56.346 33.673 0 61.788 19.216 61.788 54.717 0 39.735-36.288 50.158-36.288 85.985 0 60.803 129.675 25.73 181.23 25.73 0 0-34.725-120.101 25.827-120.101 35.962 0 46.423 36.152 86.308 36.152C556.712 416 576 387.99 576 354.443c0-34.199-18.962-65.792-56.558-65.792z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span
+                    style="margin: 4px;"
+                  >
+                    Component
+                  </span>
+                  <small>
+                    <svg
+                      aria-hidden="true"
+                      class="svg-inline--fa fa-external-link-alt fa-w-16 "
+                      data-icon="external-link-alt"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </small>
+                </h3>
+              </div>
+              <div
+                class="emotion-23 emotion-24"
+              >
+                About
+              </div>
+              <p
+                class="emotion-25 emotion-26"
+              >
+                What the Design System is and how it works.
+              </p>
+              <div
+                class="emotion-29 emotion-30"
+              >
+                <img
+                  alt="About"
+                  class="emotion-27 emotion-28"
+                  src="https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true"
+                />
+              </div>
+            </div>
+          </article>
+        </a>
+      </div>
+      <div
+        class="emotion-38 emotion-39"
+        style="justify-content: center; display: flex;"
       >
-        <Card
-          description="What the Design System is and how it works."
-          event={
-            Object {
-              "_metadata": Object {
-                "position": "001.000.000",
-              },
-              "attributes": Object {
-                "personas": Array [
-                  "Developer",
-                ],
-              },
-              "childMarkdownRemark": Object {
-                "frontmatter": Object {
-                  "pageOnly": false,
-                },
-              },
-              "fields": Object {
-                "author": "ksingbeil",
-                "description": "What the Design System is and how it works.",
-                "image": "https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true",
-                "pagePaths": Array [
-                  "/design-system/Z1bGIqu5",
-                ],
-                "personas": Array [
-                  "Developer",
-                ],
-                "resourceType": "Documentation",
-                "standAlonePath": "/DevHub-Node-1",
-                "title": "About",
-              },
-              "id": "5",
-              "parent": Object {
-                "id": "topic-2",
-              },
-              "resource": Object {
-                "path": "/design-system/Z1bGIqu5",
-                "type": "Documentation",
-              },
-              "source": Object {
-                "displayName": "Design System",
-              },
-              "unfurl": Object {
-                "author": "ksingbeil",
-                "data1": "",
-                "data2": "",
-                "description": "What the Design System is and how it works.",
-                "image": "https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true",
-                "label1": "",
-                "label2": "",
-                "title": "About",
-                "type": "markdown",
-              },
-            }
-          }
-          image="https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true"
-          key="5"
-          link="/DevHub-Node-1"
-          resourceType="Documentation"
-          title="About"
-        />
-      </Col>
-      <Col
-        key="6"
-        style={
-          Object {
-            "display": "flex",
-            "justifyContent": "center",
-          }
-        }
+        <a
+          class="emotion-35 emotion-36 emotion-37"
+          data-testid="ui-gatsby-link"
+          href="/Design-Node-4"
+        >
+          <article
+            class="emotion-33 emotion-34"
+            data-resourcetype="Components"
+          >
+            <div
+              class="emotion-17 emotion-18"
+              color="Components"
+            />
+            <div
+              class="emotion-31 emotion-32"
+            >
+              <div
+                style="margin-bottom: 6px;"
+              >
+                <h3
+                  class="emotion-21 emotion-22"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="svg-inline--fa fa-puzzle-piece fa-w-18  emotion-19 emotion-20"
+                    data-icon="puzzle-piece"
+                    data-prefix="fas"
+                    data-testid="resource-type-icon"
+                    focusable="false"
+                    role="img"
+                    type="Components"
+                    viewBox="0 0 576 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M519.442 288.651c-41.519 0-59.5 31.593-82.058 31.593C377.409 320.244 432 144 432 144s-196.288 80-196.288-3.297c0-35.827 36.288-46.25 36.288-85.985C272 19.216 243.885 0 210.539 0c-34.654 0-66.366 18.891-66.366 56.346 0 41.364 31.711 59.277 31.711 81.75C175.885 207.719 0 166.758 0 166.758v333.237s178.635 41.047 178.635-28.662c0-22.473-40-40.107-40-81.471 0-37.456 29.25-56.346 63.577-56.346 33.673 0 61.788 19.216 61.788 54.717 0 39.735-36.288 50.158-36.288 85.985 0 60.803 129.675 25.73 181.23 25.73 0 0-34.725-120.101 25.827-120.101 35.962 0 46.423 36.152 86.308 36.152C556.712 416 576 387.99 576 354.443c0-34.199-18.962-65.792-56.558-65.792z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span
+                    style="margin: 4px;"
+                  >
+                    Component
+                  </span>
+                  <small>
+                    <svg
+                      aria-hidden="true"
+                      class="svg-inline--fa fa-external-link-alt fa-w-16 "
+                      data-icon="external-link-alt"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </small>
+                </h3>
+              </div>
+              <div
+                class="emotion-23 emotion-24"
+              >
+                About
+              </div>
+              <p
+                class="emotion-25 emotion-26"
+              >
+                What the Design System is and how it works.
+              </p>
+              <div
+                class="emotion-29 emotion-30"
+              >
+                <img
+                  alt="About"
+                  class="emotion-27 emotion-28"
+                  src="https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true"
+                />
+              </div>
+            </div>
+          </article>
+        </a>
+      </div>
+      <div
+        class="emotion-38 emotion-39"
+        style="justify-content: center; display: flex;"
       >
-        <Card
-          description="What the Design System is and how it works."
-          event={
-            Object {
-              "_metadata": Object {
-                "position": "001.000.001",
-              },
-              "attributes": Object {
-                "personas": Array [
-                  "Designer",
-                  "Developer",
-                ],
-              },
-              "childMarkdownRemark": Object {
-                "frontmatter": Object {
-                  "pageOnly": false,
-                },
-              },
-              "fields": Object {
-                "author": "ksingbeil",
-                "description": "What the Design System is and how it works.",
-                "image": "https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true",
-                "pagePaths": Array [
-                  "/design-system/Z1bGIqu6",
-                ],
-                "personas": Array [
-                  "Designer",
-                  "Developer",
-                ],
-                "resourceType": "Documentation",
-                "standAlonePath": "/DevHub-Node-2",
-                "title": "About",
-              },
-              "id": "6",
-              "parent": Object {
-                "id": "topic-2",
-              },
-              "resource": Object {
-                "path": "/design-system/Z1bGIqu6",
-                "type": "Documentation",
-              },
-              "source": Object {
-                "displayName": "Design System",
-              },
-              "unfurl": Object {
-                "author": "ksingbeil",
-                "data1": "",
-                "data2": "",
-                "description": "What the Design System is and how it works.",
-                "image": "https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true",
-                "label1": "",
-                "label2": "",
-                "title": "About",
-                "type": "markdown",
-              },
-            }
-          }
-          image="https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true"
-          key="6"
-          link="/DevHub-Node-2"
-          resourceType="Documentation"
-          title="About"
-        />
-      </Col>
-    </Row>
-  </ResourceContainer>
-  <LinkContainer>
-    <ChevronLink
-      to="/"
+        <a
+          class="emotion-35 emotion-36 emotion-37"
+          data-testid="ui-gatsby-link"
+          href="/DevHub-Node-1"
+        >
+          <article
+            class="emotion-33 emotion-34"
+            data-resourcetype="Documentation"
+          >
+            <div
+              class="emotion-109 emotion-18"
+              color="Documentation"
+            />
+            <div
+              class="emotion-31 emotion-32"
+            >
+              <div
+                style="margin-bottom: 6px;"
+              >
+                <h3
+                  class="emotion-21 emotion-22"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="svg-inline--fa fa-file fa-w-12  emotion-111 emotion-20"
+                    data-icon="file"
+                    data-prefix="fas"
+                    data-testid="resource-type-icon"
+                    focusable="false"
+                    role="img"
+                    type="Documentation"
+                    viewBox="0 0 384 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span
+                    style="margin: 4px;"
+                  >
+                    Documentation
+                  </span>
+                  <small>
+                    <svg
+                      aria-hidden="true"
+                      class="svg-inline--fa fa-external-link-alt fa-w-16 "
+                      data-icon="external-link-alt"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </small>
+                </h3>
+              </div>
+              <div
+                class="emotion-23 emotion-24"
+              >
+                About
+              </div>
+              <p
+                class="emotion-25 emotion-26"
+              >
+                What the Design System is and how it works.
+              </p>
+              <div
+                class="emotion-29 emotion-30"
+              >
+                <img
+                  alt="About"
+                  class="emotion-27 emotion-28"
+                  src="https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true"
+                />
+              </div>
+            </div>
+          </article>
+        </a>
+      </div>
+      <div
+        class="emotion-38 emotion-39"
+        style="justify-content: center; display: flex;"
+      >
+        <a
+          class="emotion-35 emotion-36 emotion-37"
+          data-testid="ui-gatsby-link"
+          href="/DevHub-Node-2"
+        >
+          <article
+            class="emotion-33 emotion-34"
+            data-resourcetype="Documentation"
+          >
+            <div
+              class="emotion-109 emotion-18"
+              color="Documentation"
+            />
+            <div
+              class="emotion-31 emotion-32"
+            >
+              <div
+                style="margin-bottom: 6px;"
+              >
+                <h3
+                  class="emotion-21 emotion-22"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="svg-inline--fa fa-file fa-w-12  emotion-111 emotion-20"
+                    data-icon="file"
+                    data-prefix="fas"
+                    data-testid="resource-type-icon"
+                    focusable="false"
+                    role="img"
+                    type="Documentation"
+                    viewBox="0 0 384 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span
+                    style="margin: 4px;"
+                  >
+                    Documentation
+                  </span>
+                  <small>
+                    <svg
+                      aria-hidden="true"
+                      class="svg-inline--fa fa-external-link-alt fa-w-16 "
+                      data-icon="external-link-alt"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </small>
+                </h3>
+              </div>
+              <div
+                class="emotion-23 emotion-24"
+              >
+                About
+              </div>
+              <p
+                class="emotion-25 emotion-26"
+              >
+                What the Design System is and how it works.
+              </p>
+              <div
+                class="emotion-29 emotion-30"
+              >
+                <img
+                  alt="About"
+                  class="emotion-27 emotion-28"
+                  src="https://github.com/bcgov/design-system/blob/master/components/about/about.md?raw=true"
+                />
+              </div>
+            </div>
+          </article>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="emotion-161 emotion-162"
+  >
+    <a
+      class="emotion-159 emotion-37"
+      data-testid="ui-gatsby-link"
+      href="/"
     >
       bar
-    </ChevronLink>
-  </LinkContainer>
-</Container>
+       
+      <svg
+        aria-hidden="true"
+        class="svg-inline--fa fa-chevron-right fa-w-10 "
+        data-icon="chevron-right"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        viewBox="0 0 320 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
+          fill="currentColor"
+        />
+      </svg>
+    </a>
+  </div>
+</section>
 `;

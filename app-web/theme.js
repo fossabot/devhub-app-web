@@ -30,7 +30,7 @@ when and as needed. This is a slow processes but will lead to better and more ma
 */
 
 import { SPACING } from './src/constants/designTokens';
-import { RESOURCE_TYPES, TOPICS, SEARCH_RESOURCE_TYPES } from './src/constants/ui';
+import { RESOURCE_TYPES, TOPICS, SEARCH_RESOURCE_TYPES, JOURNEY } from './src/constants/ui';
 
 export const DEVHUB_PALETTE = {
   [RESOURCE_TYPES.COMPONENTS]: '#4299D2',
@@ -40,7 +40,10 @@ export const DEVHUB_PALETTE = {
   [TOPICS]: '#444',
   [RESOURCE_TYPES.REPOSITORIES]: '#6e5494',
   [SEARCH_RESOURCE_TYPES.GITHUB_ISSUE]: '#6e5494',
+  [SEARCH_RESOURCE_TYPES.DOCUMIZE]: '#00000f',
   [RESOURCE_TYPES.EVENTS]: '#f44b42',
+  [JOURNEY]: '#009688',
+  lightgreen: '#66bb6a',
   yellow: '#FCBA19',
   lightyellow: '#F3BA45',
   grey: '#494949',

@@ -18,13 +18,19 @@ Created by Patrick Simonian
 
 import React from 'react';
 import { useImplicitAuth } from './utils/hooks';
+import isEmpty from 'lodash/isEmpty';
 
 const AuthContext = React.createContext({});
 
 // Auth Provider is already wrapping gatsby browser so all pages should have access to the context
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children, location, ...rest }) => {
   const auth = useImplicitAuth();
-  return <AuthContext.Provider value={{ auth }}>{children}</AuthContext.Provider>;
+
+  return (
+    <AuthContext.Provider value={{ auth, isAuthenticated: !isEmpty(auth) }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 /**

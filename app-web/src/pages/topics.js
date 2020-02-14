@@ -15,29 +15,53 @@ limitations under the License.
 
 Created by Patrick Simonian
 */
-import React from 'react';
+import queryString from 'query-string';
+import React, { useState, useEffect } from 'react';
 import { TOPICS_PAGE } from '../messages';
 import { flattenGatsbyGraphQL } from '../utils/dataHelpers';
 import { Title } from '../components/Page';
-import TopicPreview from '../components/TopicPreview/TopicPreview';
+import Topic from '../components/Topic';
 import Main from '../components/Page/Main';
 import withResourceQuery from '../hoc/withResourceQuery';
 import Layout from '../hoc/Layout';
-import { getFirstNonExternalResource } from '../utils/helpers';
+import { getFirstNonExternalResource, reduceNodeForTableOfContents } from '../utils/helpers';
+import TableOfContents, {
+  TableOfContentsToggle,
+  AccordionList,
+  OutsideBorder,
+  viewToggle,
+} from '../components/TableOfContents/TableOfContents';
+import { JOURNEY_TOPIC_VIEW_MODES as VIEW_MODES } from '../constants/ui';
 
-export const TopicsPage = ({ data }) => {
-  let topics = flattenGatsbyGraphQL(data.allDevhubTopic.edges);
+export const TEST_IDS = {
+  toggle: 'topic-page-view-toggle',
+  cardView: 'topic-page-view-card',
+  listView: 'topic-page-view-list',
+};
+
+export const TopicsPage = ({ data, location }) => {
+  let topics = flattenGatsbyGraphQL(data.allTopicRegistryJson.edges);
+
+  const queryParam = queryString.parse(location.search);
+
+  let [viewMode, setMode] = useState(VIEW_MODES.card);
+
+  useEffect(() => {
+    if (queryParam.v === VIEW_MODES.list) {
+      setMode(VIEW_MODES.list);
+    } else {
+      setMode(VIEW_MODES.card);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queryParam.v]); //Only re-run the effect if queryParam.v changes
+
   // resources are grouped by type, 'ungroup' them so we can find the first available
   // non external link to use as the entry page for the topic card
-  return (
-    <Layout>
-      <Main>
-        <Title
-          title={TOPICS_PAGE.header.title.defaultMessage}
-          subtitle={TOPICS_PAGE.header.subtitle.defaultMessage}
-        />
+  const currentView =
+    viewMode === VIEW_MODES.card ? (
+      <div data-testid={TEST_IDS.cardView}>
         {topics.map(topic => (
-          <TopicPreview
+          <Topic
             key={topic.id}
             title={topic.name}
             description={topic.description}
@@ -48,6 +72,32 @@ export const TopicsPage = ({ data }) => {
             }}
           />
         ))}
+      </div>
+    ) : (
+      <AccordionList style={{ padding: '20px' }} data-testid={TEST_IDS.listView}>
+        {topics.map(topic => (
+          <OutsideBorder key={topic.id}>
+            <TableOfContents
+              title={topic.name}
+              contents={topic.connectsWith.map(reduceNodeForTableOfContents)}
+            />
+          </OutsideBorder>
+        ))}
+      </AccordionList>
+    );
+  return (
+    <Layout>
+      <Main>
+        <Title
+          title={TOPICS_PAGE.header.title.defaultMessage}
+          subtitle={TOPICS_PAGE.header.subtitle.defaultMessage}
+        />
+        <TableOfContentsToggle
+          onChange={() => viewToggle(location.pathname, viewMode)}
+          data-testid={TEST_IDS.toggle}
+          viewMode={viewMode}
+        />
+        {currentView}
       </Main>
     </Layout>
   );

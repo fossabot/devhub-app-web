@@ -41,13 +41,12 @@ objects:
     postCommit: {}
     runPolicy: SerialLatestOnly
     resources:
-      requests:
-        cpu: 1
-        memory: 512Mi ## memory usage is high because jest test use a lot of memory when running
-        ## we are hoping to move jest tests outside of the assemble script but until we do this will be quite a high request
       limits:
-        cpu: 2
-        memory: 5Gi
+        cpu: 1
+        memory: 7Gi
+      requests:
+        cpu: 200m
+        memory: 4536Mi
     source:
       git:
         uri: ${SOURCE_REPOSITORY_URL}
@@ -57,11 +56,32 @@ objects:
     strategy:
       sourceStrategy:
         env:
+          # very important to increase nodes default memory limit to handle
+          # all the pages gatsby creates
+          - name: NODE_OPTIONS
+            value: --max_old_space_size=1000
           - name: GITHUB_TOKEN
             valueFrom:
               secretKeyRef:
                 name: devhub-gh-token
                 key: GITHUB_TOKEN
+          - name: GATSBY_ALGOLIA_APP_ID
+            valueFrom:
+              secretKeyRef:
+                name: devhub-algolia-build
+                key: GATSBY_ALGOLIA_APP_ID
+          - name: ALGOLIA_ADMIN_KEY
+            valueFrom:
+              secretKeyRef:
+                name: devhub-algolia-build
+                key: ALGOLIA_ADMIN_KEY
+          - name: GATSBY_ALGOLIA_SEARCH_KEY
+            valueFrom:
+              secretKeyRef:
+                name: devhub-algolia-build
+                key: GATSBY_ALGOLIA_SEARCH_KEY
+          - name: GATSBY_ALGOLIA_INDEX_NAME_SUFFIX
+            value: ${SUFFIX}
           - name: MEETUP_API_KEY
             valueFrom: 
               secretKeyRef:

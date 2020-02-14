@@ -13,15 +13,26 @@ module.exports = ({ actions }) => {
       path: String
       id: String! 
     }
+    type frontmatterLableSet {
+      app: String
+    }
     type ConnectedNodeFieldSet {
       position: String
       title: String
       description: String
       image: String
-      labels: [String]
+      labels: frontmatterLableSet
       tags: [String]
       path: String
       resourceType: String
+      standAlonePath: String
+    }
+    type ConnectedStopNode {
+      fields: ConnectedNodeFieldSet
+      path: String
+      id: String!
+      _type: String!
+      connectsWith: [ConnectedNode]
     }
   `;
 

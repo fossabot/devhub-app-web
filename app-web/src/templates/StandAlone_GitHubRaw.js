@@ -23,13 +23,11 @@ import { Main } from '../components/Page';
 import rehypeReact from 'rehype-react';
 import styled from '@emotion/styled';
 import Pill from '../components/UI/Pill';
-import { withPadding } from '../components/GithubTemplate/common';
+import Actions from '../components/GithubTemplate/Actions/Actions';
+import { withPadding, MarkdownBody } from '../components/GithubTemplate/common';
 import slugify from 'slugify';
 import { Link } from '../components/UI/Link';
-
-const ContentDiv = styled.div`
-  padding-top: 10px;
-`;
+import { SEO } from '../components/SEO/SEO';
 
 const PillDiv = styled.div`
   display: flex;
@@ -134,9 +132,14 @@ export const StandAloneGitHubRawResource = ({ data: { githubRaw } }) => {
       );
     });
   }*/
-
+  const {
+    html_url,
+    fields: { standAlonePath, title },
+  } = githubRaw;
+  const [owner, repo] = html_url.replace('https://github.com/', '').split('/');
   return (
     <Layout>
+      <SEO title={title} />
       <Header>
         <HeaderTitle>Resource Information</HeaderTitle>
         <PillDiv>{resourceTypePill}</PillDiv>
@@ -144,7 +147,16 @@ export const StandAloneGitHubRawResource = ({ data: { githubRaw } }) => {
         <PillDiv>{personaPills}</PillDiv>
       </Header>
       <Main>
-        <ContentDiv>{renderAst(githubRaw.childMarkdownRemark.htmlAst)}</ContentDiv>
+        <MarkdownBody>
+          {renderAst(githubRaw.childMarkdownRemark.htmlAst)}
+          <Actions
+            repo={repo}
+            owner={owner}
+            pageTitle={title}
+            originalSource={html_url}
+            devhubPath={standAlonePath}
+          />
+        </MarkdownBody>
       </Main>
     </Layout>
   );
@@ -154,10 +166,13 @@ export const devhubGitHubRawData = graphql`
   query devhubGitHubRawQuery($id: String!) {
     githubRaw(id: { eq: $id }) {
       id
+      html_url
       fields {
         slug
         personas
+        title
         resourceType
+        standAlonePath
         topics {
           name
           id
@@ -168,9 +183,6 @@ export const devhubGitHubRawData = graphql`
       }
       childMarkdownRemark {
         htmlAst
-        frontmatter {
-          labels
-        }
       }
     }
   }

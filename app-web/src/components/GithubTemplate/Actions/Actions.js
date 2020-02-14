@@ -11,6 +11,7 @@ const Container = styled.ul`
   flex-flow: row nowrap;
   margin: 0 0 15px;
   padding: 0;
+  font-size: 18px;
   border: 1px solid #ccc;
   list-style: none;
 `;
@@ -27,7 +28,7 @@ const LI = styled.li`
   }
 `;
 
-export const IDS = {
+export const TEST_IDS = {
   issue: 'actions-issue',
 };
 
@@ -35,7 +36,7 @@ const Actions = ({ repo, owner, pageTitle, originalSource, devhubPath }) => (
   <Container>
     <LI>
       <Link
-        id={IDS.issue}
+        data-testid={TEST_IDS.issue}
         to={getCannedIssueMessage(repo, owner, pageTitle, originalSource, devhubPath)}
         aria-label="create an issue for this page on github"
       >

@@ -15,6 +15,7 @@ limitations under the License.
 
 Created by Patrick Simonian
 */
+
 import validUrl from 'valid-url';
 import dotProp from 'dot-prop';
 import { GITHUB_URL } from '../constants/api';
@@ -36,6 +37,21 @@ export const getGithubWatchRoute = (repository, owner) =>
 
 export const getGithubUsernameURL = username => `${GITHUB_URL}/${username}`;
 
+/**
+ * fetches contents from Github and returns a promise of the base64 encoded content
+ * @param {Object} pathToFile the details required to make a call to the github api
+ * @param {String} pathToFile.repo the repo name
+ * @param {String} pathToFile.owner the repos owner
+ * @param {String} pathToFile.path the path to the fail (no leading slash)
+ * @param {String} pathToFile.ref the branch * defaults to master
+ * @param {AbortController.signal} signal an AbortController Signal, defaults to null if not used
+ * this will allow you to abort the call if needed
+ * @returns {Promise} String b64 content
+ */
+export const getGithubFileContents = ({ repo, owner, path, ref = 'master' }, signal = null) =>
+  fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${ref}`, { signal })
+    .then(res => res.json())
+    .then(data => data.content);
 /**
  * returns the text and path being used for the link in the ResourcePreview below
  * the text will be reflective of the resourceType and is sensitive to different search result # cases
@@ -373,4 +389,26 @@ export const isLocalHost = () => {
   const { origin } = window.location;
 
   return origin.indexOf('localhost') >= 0 || origin.indexOf('0.0.0.0') >= 0;
+};
+
+/**
+ * reduces the connects with node field to subway stops usable by the subwayline component
+ * @param {Array} connections the subway stops found from registryJourneyJson.connectsWith
+ */
+export const reduceJourneyToSubwayLine = connections => {
+  return connections.map((connection, index) => ({
+    name: connection.fields.title,
+    to: connection.path,
+    variant: index % 2 === 0 ? 'up' : 'down',
+  }));
+};
+
+/**
+ * reduces a node to an object used by the contents prop in the <TableOfContents> component
+ * @param {Object} node the node
+ * @returns {Object}
+ */
+export const reduceNodeForTableOfContents = node => {
+  const { path, fields } = node;
+  return { ...fields, path };
 };

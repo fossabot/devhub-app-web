@@ -15,29 +15,58 @@ limitations under the License.
 
 Created by Patrick Simonian
 */
+
 import React from 'react';
-import { shallow } from 'enzyme';
-import { ResourcePreview } from '../../src/components/Home';
+import {
+  ResourcePreview,
+  handleFilterToggle,
+  ALL_FILTER,
+} from '../../src/components/Home/ResourcePreview';
 import { SIPHON_NODES } from '../../__fixtures__/nodes';
+import { render } from '@testing-library/react';
+import { ThemeProvider } from 'emotion-theming';
+import theme from '../../theme';
 
 describe('Resource Preview Component', () => {
-  let resourcePreview = null;
+  it('matches snapshot', () => {
+    const props = {
+      title: 'foo',
+      link: {
+        to: '/',
+        text: 'bar',
+      },
+      resources: SIPHON_NODES,
+      location: {
+        search: '',
+      },
+      filters: [{ name: 'Foo' }, { name: 'Bar' }],
+      amountToShow: 6,
+    };
+    const { container } = render(
+      <ThemeProvider theme={theme}>
+        <ResourcePreview {...props} />
+      </ThemeProvider>,
+    );
 
-  const props = {
-    title: 'foo',
-    link: {
-      to: '/',
-      text: 'bar',
-    },
-    resources: SIPHON_NODES,
-    amountToShow: 6,
-  };
-
-  beforeEach(() => {
-    resourcePreview = shallow(<ResourcePreview {...props} />);
+    expect(container.firstChild).toMatchSnapshot();
   });
 
-  test('it matches snapshot', () => {
-    expect(resourcePreview).toMatchSnapshot();
+  describe('handleFilterToggle', () => {
+    it('it return [] if all is passed in', () => {
+      const activeFilters = ['foo', 'bar'];
+      expect(handleFilterToggle(ALL_FILTER, activeFilters)).toEqual([]);
+    });
+
+    it("it adds a filter if it doesn't exist in active list", () => {
+      const activeFilters = ['foo', 'bar'];
+
+      expect(handleFilterToggle('baz', activeFilters)).toEqual(['foo', 'bar', 'baz']);
+    });
+
+    it('it removes a filter if it does exist in active list', () => {
+      const activeFilters = ['foo', 'bar'];
+
+      expect(handleFilterToggle('bar', activeFilters)).toEqual(['foo']);
+    });
   });
 });

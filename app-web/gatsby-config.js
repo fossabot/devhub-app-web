@@ -1,9 +1,11 @@
 require('dotenv').config({
   path: '.env.production',
 });
-const { registry } = require('./devhub.config.json');
+const { topicRegistry, journeyRegistry } = require('./devhub.config.json');
 const { converter } = require('./gatsby/utils/gatsbyRemark');
 const { getFilesFromRegistry } = require('./gatsby/utils/githubRaw');
+const { getQueries } = require('./src/utils/algolia');
+
 // To specify a path of the registry.yaml file, set as env variable
 // This comes as a pair of sourceRegistryType used by gatsby-source-github-all
 // const registry_path = process.env.REGISTRY_PATH || '';
@@ -15,6 +17,20 @@ const eventbritePlugin = () =>
         options: {
           organizationId: 228490647317, //csi lab org id
           accessToken: process.env.EVENT_BRITE_API_KEY,
+        },
+      }
+    : undefined;
+
+const algoliaPlugin = () =>
+  //for CI purpose, but we do nut want to push index to algolia every time, especially on github action.
+  process.env.GATSBY_ACTIVE_ENV !== 'test' || !process.env.GATSBY_ACTIVE_ENV
+    ? {
+        resolve: `gatsby-plugin-algolia`,
+        options: {
+          appId: process.env.GATSBY_ALGOLIA_APP_ID,
+          apiKey: process.env.ALGOLIA_ADMIN_KEY,
+          queries: getQueries(process.env.GATSBY_ALGOLIA_INDEX_NAME_SUFFIX),
+          chunkSize: 10000, // default: 1000
         },
       }
     : undefined;
@@ -32,7 +48,6 @@ const eventbritePlugin = () =>
         },
       }
     : undefined;
-
 const cloudNativeMeetup = () =>
   process.env.MEETUP_API_KEY
     ? {
@@ -45,7 +60,6 @@ const cloudNativeMeetup = () =>
         },
       }
     : undefined;
-
 const uxGuildMeetup = () =>
   process.env.MEETUP_API_KEY
     ? {
@@ -58,7 +72,6 @@ const uxGuildMeetup = () =>
         },
       }
     : undefined;
-
 const devopsVictoriaMeetup = () =>
   process.env.MEETUP_API_KEY
     ? {
@@ -71,7 +84,6 @@ const devopsVictoriaMeetup = () =>
         },
       }
     : undefined;
-
 const SCIPSMeetup = () =>
   process.env.MEETUP_API_KEY
     ? {
@@ -87,6 +99,7 @@ const SCIPSMeetup = () =>
 
 const dynamicPlugins = [
   eventbritePlugin(),
+  algoliaPlugin(),
   /*devopsCommonsMeetup(),
   cloudNativeMeetup(),
   uxGuildMeetup(),
@@ -99,13 +112,19 @@ module.exports = {
     title: 'DevHub',
   },
   mapping: {
-    'GithubRaw.fields.topics': 'DevhubTopic.name',
-    'DevhubSiphon.fields.topics': 'DevhubTopic.name',
-    // 'DevhubTopic.fields.content': 'MarkdownRemark.fields.id', // topic page content mapping
-    'DevhubTopic.fields.githubRaw': 'GithubRaw.id',
+    'GithubRaw.fields.topics': 'TopicRegistryJson.name',
+    'DevhubSiphon.fields.topics': 'TopicRegistryJson.name',
+    // 'devhubRegistryJson.fields.content': 'MarkdownRemark.fields.id', // topic page content mapping
+    // 'TopicRegistryJson.fields.githubRaw': 'GithubRaw.id',
+    // 'JourneyRegistryJson.name': 'MarkdownRemark.frontmatter.id',
   },
   pathPrefix: '/images',
   plugins: [
+    // service worker has been causing very difficult to debug issues
+    // removal of it is necessary for the time being while users have old versions of sw.js
+    // cached on their browser. The date of this removal is around jan 24 2020 and we should aim
+    // to REMOVE this plugin in a month or two so that we can harness the benefits of having a sw
+    'gatsby-plugin-remove-serviceworker',
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -124,9 +143,7 @@ module.exports = {
         include_favicon: true,
       },
     },
-    'gatsby-plugin-offline',
     'gatsby-plugin-emotion',
-    `gatsby-plugin-react-helmet`,
     // Adding various source folders to the GraphQL layer.
     {
       resolve: 'gatsby-source-filesystem',
@@ -138,8 +155,15 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        name: 'registry',
-        path: `${__dirname}/${registry.contextDir}`,
+        name: 'topicRegistry',
+        path: `${__dirname}/${topicRegistry.contextDir}`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'journeyRegistry',
+        path: `${__dirname}/${journeyRegistry.contextDir}`,
       },
     },
     {
@@ -147,6 +171,13 @@ module.exports = {
       options: {
         name: 'registry',
         path: `${__dirname}/topics`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'journeyContent',
+        path: `${__dirname}/journeys`,
       },
     },
     {
@@ -173,7 +204,7 @@ module.exports = {
       options: { prefixes: ['/topic/*'] }, // dynamic topic pages
     },
     {
-      resolve: 'gatsby-source-github-raw',
+      resolve: '@bcgov/gatsby-source-github-raw',
       options: {
         githubAccessToken: process.env.GITHUB_TOKEN,
         files: getFilesFromRegistry,
@@ -185,7 +216,6 @@ module.exports = {
         plugins: [
           'gatsby-remark-emoji',
           'gatsby-remark-copy-linked-files',
-          'gatsby-remark-autolink-headers',
           {
             resolve: 'gatsby-remark-prismjs',
             options: {
@@ -194,6 +224,7 @@ module.exports = {
               aliases: {},
               showLineNumbers: false,
               noInlineHighlight: true,
+              escapeEntities: { '{': '&#123;', '}': '&#125;' },
             },
           },
           {
@@ -202,6 +233,7 @@ module.exports = {
               converter,
             },
           },
+          'gatsby-remark-autolink-headers',
           {
             resolve: 'gatsby-remark-images',
             options: {
@@ -212,6 +244,13 @@ module.exports = {
             },
           },
           'gatsby-plugin-catch-links',
+          {
+            resolve: 'gatsby-remark-external-links',
+            options: {
+              target: '_blank',
+              rel: 'nofollow',
+            },
+          },
         ],
       },
     },
@@ -223,44 +262,7 @@ module.exports = {
         },
         // If REGISTRY_PATH is set specifically, include this REGISTRY_TYPE as an env var
         // Format convention: camalcase of the sub path + 'Yaml'
-        sourceRegistryType: 'RegistryJson',
-      },
-    },
-    {
-      resolve: '@gatsby-contrib/gatsby-plugin-elasticlunr-search',
-      options: {
-        // Fields to index
-        fields: ['title', 'content', 'description', 'topicName', 'labels', 'author', 'personas'],
-        // How to resolve each field`s value for a supported node type
-        resolvers: {
-          MarkdownRemark: {
-            title: node => node.fields.title,
-            content: node => node.fields.content.slice(0, 700),
-            description: node => node.fields.description,
-            labels: node => node.fields.labels,
-            author: node => node.fields.author,
-            personas: node => node.frontmatter.personas,
-            topicName: node => node.fields.topicName,
-            id: node => node.parent,
-          },
-          DevhubSiphon: {
-            title: node => node.fields.title,
-            description: node => node.fields.description,
-            personas: node => node.fields.personas,
-            topicName: node => node.topic.name,
-            labels: node => node.fields.labels,
-          },
-          EventbriteEvents: {
-            title: node => node.name.text,
-            description: node => node.description.text,
-            topicName: node => node.fields.topics,
-          },
-          MeetupEvent: {
-            title: node => node.name,
-            description: node => node.description,
-            topicName: node => node.fields.topics,
-          },
-        },
+        sourceRegistryType: 'TopicRegistryJson',
       },
     },
     {
@@ -290,7 +292,7 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-source-matomo',
+      resolve: '@bcgov/gatsby-source-matomo',
       options: {
         siteId: process.env.GATSBY_MATOMO_SITE_ID,
         matomoUrl: process.env.GATSBY_MATOMO_URL,

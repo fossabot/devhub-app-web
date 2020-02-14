@@ -4,13 +4,15 @@ author: sheaphillips
 image: https://github.com/bcgov/devhub-app-web/blob/master/docs/images/book.png?raw=true
 ---
 
+> looking for pipeline docs? Please see [Jenkins Readme](./.jenkins/README.md) :)
+
 # DevHub App Web
  
  This is the primary repository for the BC Gov DevHub application.  The code contained mostly relates to the web application specifically, but other content may relate to the DevHub more generally.     
  
 ## DevHub Intro
 
-DevHub aims to become the "Central Nervous System" for the growing gov developer community.  We also describe it    like a "wayfinding" tool for digital product teams. 
+DevHub aims to become the "Central Nervous System" for the growing gov developer community.  We also describe it like a "wayfinding" tool for digital product teams. 
 
 It will provide a comprehensive inventory of relevant internal and external documentation, open source components, services, APIs and data for internal and external developers who are building government products, or want to build their own products
 
@@ -24,7 +26,7 @@ It will also provide a aeans to seed “prosumer”/community behaviours. For ex
 
 ## How Resources Are Sourced and Connected Together (from the developer's prespective)
 
-Resources are sourced via a set of __Gatsby Source Plugins__. These plugins are installed through npm (or sourced locally) and then declared within `gatsby-config.js`. 
+Resources are sourced via a set of __Gatsby Source Plugins__. These plugins are installed through `npm` (or sourced locally) and then declared within `gatsby-config.js`. 
 
 To link nodes together there are a couple of different constructs that are being utilized. 
 
@@ -57,7 +59,7 @@ The currently imagined resource types are as follows:
 * People
 * Projects
 
-There is also the concept of a set of potentially heterogeneous resources that we are calling a "Topic". For example, a   
+There is also the concept of a set of potentially heterogeneous resources that we are calling a "Topic".
 
 ### Documentation
 
@@ -111,10 +113,10 @@ Here are some of the other components/technologies used by DevHub:
 - ReactJS
 - GraphQL
 - StorybookJS
-## Third-Party Products/Libraries used and the the License they are covered by
 
+## Third-Party Products/Libraries
+- Algolia (for searching) 
 - GatsbyJS  
-[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/gatsbyjs/gatsby/blob/master/LICENSE)
 
 
 ## Project Status
@@ -123,12 +125,14 @@ In Development
 ## Documentation
 - [Internal Docs](docs/README.md)
 - [Authoring Plugins for Remark](https://www.huynguyen.io/2018-05-remark-gatsby-plugin-part-2/)
-- [Testing and QA](docs/testingAndQa.md);
+- [Testing and QA](docs/testingAndQa.md)
+- [Search](docs/searchWithAlgolia.md)
+
 ## Security
 
 ### Authentication, Authorization, Policies, etc
 
-Currently, DevHub is a statically generated site (generated using GatsbyJS) and served using [Caddy Server](https://caddyserver.com/) and has no concept of users, authentication, or authorization. This will likely change in the future at which point this documentation will be updated to reflect details in those areas.
+Currently, DevHub is a statically generated site (generated using GatsbyJS) and served using [Caddy Server](https://caddyserver.com/). Users may authenticate against Keycloak to gain access to more robust search functionality (search rocketchat, github, and documize).
 
 ## Code Management
 
@@ -140,6 +144,8 @@ This project follows the [GitHub Flow workflow](https://guides.github.com/introd
 
 As indicated above, the team follows the GitHub approach for managing code and releases.  Accompanying this general approach the team has implemented some specific structures, tools and practices that are described in this section.
 
+<!-- 
+This should be in a CONTRIBUTING.md file
 ##### Branch Structure
 
 In the repo, at any given time, several to many branches may exist, and these can be categorized into a few "types" of branches, used for specific purposes.  Each is outlined below.
@@ -147,7 +153,7 @@ In the repo, at any given time, several to many branches may exist, and these ca
 * `master` branch: code that has been deployed an accepted in production ends up here.  It is the source from which new feature branches are created.
 * `feature/<#>-<issue-or-user-story-description>` branch: branches named following a similar format to the one shown are "feature branches" and created for the purpose of capturing work related to a single feature, often corresponding to a single, specific user story or issue.  This type of branch is created based on the lastest contents of `master`.
 * `hotfix/<#>-<issue-description>`: a "hotfix" branch for a change required to remediate an urgent problem found in the production instance of the application.  This type of branch would be based on the state of the master branch at the point the code in production was merged into it.
-* `chore/#-<issue-description>`: chore or housekeeping tasks for the repository
+* `chore/#-<issue-description>`: chore or housekeeping tasks for the repository -->
 
 ##### Lifecycle
 
@@ -168,78 +174,9 @@ Feature lifecycle is as follows:
  ### Integration with Zenhub via issues
 
 Any issues that are created within this repository are synced with our Zenhub kanban board.
-         
-
-## Files in this repository
-> cmd to update tree (from project root) `tree -I 'node_modules|coverage|.cache|app-web/public' -d -L 3`
-```
-.
-├── app-web
-│   ├── __fixtures__
-│   ├── __mocks__
-│   │   └── @bcgov
-│   ├── __tests__
-│   │   ├── components
-│   │   ├── gatsby
-│   │   ├── gatsby-plugins
-│   │   ├── hoc
-│   │   ├── pages
-│   │   └── utils
-│   ├── config
-│   │   └── jest
-│   ├── cypress
-│   │   ├── fixtures
-│   │   ├── integration
-│   │   ├── plugins
-│   │   ├── support
-│   │   └── videos
-│   ├── gatsby
-│   │   └── utils
-│   ├── plugins
-│   │   ├── gatsby-remark-path-transform
-│   │   └── gatsby-source-github-all
-│   ├── registry
-│   ├── shell-scripts
-│   ├── src
-│   │   ├── assets
-│   │   ├── components
-│   │   ├── constants
-│   │   ├── hoc
-│   │   ├── messages
-│   │   ├── pages
-│   │   ├── templates
-│   │   └── utils
-│   ├── static
-│   │   ├── images
-│   │   └── scripts
-│   ├── stories
-│   └── topics
-├── docs
-│   └── images
-├── functional-tests
-│   ├── gradle
-│   │   └── wrapper
-│   └── src
-│       └── test
-├── matomo
-│   └── openshift
-│       ├── mariadb
-│       ├── matomo
-│       ├── matomo-db
-│       └── matomo-proxy
-├── openshift
-│   ├── keycloak-scripts
-│   └── templates
-└── pipeline
-    ├── gradle
-    │   └── wrapper
-    └── src
-        └── groovy
-
-```
 
 ## Getting Started
-
+* Setup a Developer Account with [Algolia](https://algolia.com). Use the __Community__ version.
 * change into app-web project directory
 * copy and update your env file
 * `cp .env.production.example .env.production`
@@ -247,6 +184,7 @@ Any issues that are created within this repository are synced with our Zenhub ka
    leave it as a blank variable.
 * set up a secret to allow the openshift builder service account to push devhub 'dev mode' images to
   docker hub, instructions [here](./docs/devhub-previewer-setup.md)
+
 ## Deployment (Local Development For App-Web)
 
 * Requires **Node 10** and **npm 6**
@@ -287,7 +225,7 @@ __Besides the initial deployment of application__, which happens manually, the r
    c. for some reason I (Patrick) have not be able to use the `--dev-mode` flag of this version of the jenkins bcdk
    and so you will need to make a live pr to your repository before continuing
    d. log into oc through the command line and switch projects to your tools name space
-   e. build the live pr, from the `lib` directory run `npm run build --  --pr=<your pr number>`
+   e. build the live pr, from the `lib` directory, run `npm run build --  --pr=<your pr number>`
    f. observe that the build was succesful by either viewing logs through the oc cli or the openshift console
    h. when the build is complete you may deploy straight to production (since this is the initial deployment)
    g. run `npm run deploy -- --pr=<you pr number> --env=prod`
@@ -299,7 +237,7 @@ rebuild the image
 2. Deploy the application
 > Jenkins should now be looking for prs
    a. make a pr for your code changes and jenkins should fire off a job to build and deploy the application
-   b. if builds do not fire off, you may build and deploy the application seperately. Process and Apply all templates
+   b. if builds do not fire off, you may build and deploy the application seperately. Process and apply all templates
    withing the `openshift/templates` directory
 
 ## Development Guide/Considerations

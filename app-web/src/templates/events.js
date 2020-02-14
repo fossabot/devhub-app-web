@@ -1,8 +1,25 @@
+/*
+Copyright 2019 Province of British Columbia
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at 
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Created by Patrick Simonian
+*/
 import React from 'react';
 import { graphql } from 'gatsby';
+import uniqBy from 'lodash/uniqBy';
 import styled from '@emotion/styled';
 import Layout from '../hoc/Layout';
-import Aux from '../hoc/auxillary';
 import Title from '../components/Page/Title';
 import Main from '../components/Page/Main';
 import NoEvents from '../components/UI/NoEvents';
@@ -10,15 +27,12 @@ import { flattenGatsbyGraphQL } from '../utils/dataHelpers';
 import { RESOURCE_TYPES } from '../constants/ui';
 import { EMOTION_BOOTSTRAP_BREAKPOINTS } from '../constants/designTokens';
 import { TOPICS } from '../constants/topics';
-import Card from '../components/Card/Card';
 import { ChevronLink } from '../components/UI/Link';
+import Row from '../components/Card/Row';
+import CardsInColumns from '../components/Card/CardsInColumns';
 export const TEST_IDS = {
   alert: 'events-container',
 };
-
-// const Header = styled.div`
-//   margin-top: 30px;
-// `;
 
 const Description = styled.div`
   padding-left: 3px;
@@ -34,7 +48,7 @@ export const CardContainer = styled.div`
   }
 `;
 
-//Formats eventbrite data into something usable by the card component
+// Formats eventbrite data into something usable by the card component
 export const formatEvents = events => {
   return events.map(event => {
     return {
@@ -67,27 +81,36 @@ export const formatMeetUps = meetups => {
   });
 };
 
-export const EventsPage = ({ data: { allEventbriteEvents, allDevhubTopic } }) => {
+export const EventsPage = ({ data: { allEventbriteEvents, allTopicRegistryJson } }) => {
   const events = flattenGatsbyGraphQL(allEventbriteEvents.edges);
   /*const meetUps = formatMeetUps(
     flattenGatsbyGraphQL(allMeetupGroup.edges).flatMap(meetups => {
       return meetups.childrenMeetupEvent;
     }),
   );*/
+
   // filter out any events that are passed today
   const currentEvents = formatEvents(events.filter(e => e.start.daysFromNow <= 0));
+
   //const currentMeetups = meetUps.filter(e => e.start.daysFromNow <= 0);
   //Get all the cards on the site
-  const cards = flattenGatsbyGraphQL(allDevhubTopic.edges);
+  const topics = flattenGatsbyGraphQL(allTopicRegistryJson.edges);
+
   //filter to just get the cards for the Community and Events topic
-  const communityCards = cards
+  const communityEventCards = topics
     .filter(e => e.name === TOPICS.COMMUNITY_AND_EVENTS)
-    .flatMap(e => e.childrenDevhubSiphon)
-    .filter(e => e.resource.type === RESOURCE_TYPES.EVENTS);
+    .flatMap(e => e.connectsWith)
+    .filter(e => e.fields.resourceType === RESOURCE_TYPES.EVENTS);
+
   //sort all the info so that event show up from soonest to farthest away
-  const currentEventsMeetUpsAndCards = communityCards.concat(
-    currentEvents.sort((a, b) => b.start.daysFromNow - a.start.daysFromNow),
-  );
+  let currentEventsMeetUpsAndCards = currentEvents
+    .sort((a, b) => b.start.daysFromNow - a.start.daysFromNow)
+    .concat(communityEventCards);
+
+  // community and event cards to carry a light reference to eventbrite cards, essentially titles and node fields
+  // these need to be removed
+
+  currentEventsMeetUpsAndCards = uniqBy(currentEventsMeetUpsAndCards, 'id');
 
   return (
     <Layout>
@@ -106,23 +129,11 @@ export const EventsPage = ({ data: { allEventbriteEvents, allDevhubTopic } }) =>
           </p>
         </Description>
         {currentEvents.length > 0 ? (
-          <Aux>
-            <CardContainer>
-              {currentEventsMeetUpsAndCards.map(e => {
-                return (
-                  <Card
-                    resourceType={e.fields.resourceType}
-                    key={e.id}
-                    title={e.fields.title}
-                    description={e.fields.description}
-                    image={e.fields.image}
-                    link={e.fields.standAlonePath}
-                    event={e}
-                  />
-                );
-              })}
-            </CardContainer>
-          </Aux>
+          <CardContainer>
+            <Row>
+              <CardsInColumns cards={currentEventsMeetUpsAndCards} />
+            </Row>
+          </CardContainer>
         ) : (
           <NoEvents />
         )}
@@ -139,6 +150,7 @@ export const EventData = graphql`
     ) {
       edges {
         node {
+          id
           fields {
             resourceType
             title
@@ -217,40 +229,14 @@ export const EventData = graphql`
     # }
     # }
     # }
-    allDevhubTopic {
+    allTopicRegistryJson {
       edges {
         node {
           id
           name
           description
-          resources: childrenDevhubSiphon {
-            id
-          }
-          childrenDevhubSiphon {
-            id
-            resource {
-              type
-              path
-            }
-            fields {
-              standAlonePath
-            }
-            _metadata {
-              position
-            }
-            unfurl {
-              title
-              description
-              image
-            }
-            fields {
-              resourceType
-              standAlonePath
-              pagePaths
-              image
-              title
-              description
-            }
+          connectsWith {
+            ...DevhubNodeConnection
           }
         }
       }

@@ -1,0 +1,44 @@
+{
+    "name": "Platform Services Security",
+    "description": "Modern day resources for securing your applications and services.",
+    "resourceType": "Documentation",
+    "attributes": {
+      "personas": ["Developer"]
+    },
+    "sourceProperties": {
+      "sources": [
+        {
+            "sourceType": "github",
+            "sourceProperties": {
+              "url": "https://github.com/BCDevOps/platform-services",
+              "owner": "BCDevOps",
+              "repo": "platform-services",
+              "files": [
+                "security/README.md",
+                "security/aporeto/docs/README.md",
+                "security/aporeto/docs/DeveloperWorkshop.md",
+                "security/aporeto/docs/QuickStart.md",
+                "security/aporeto/docs/CustomPolicy.md"
+              ]
+            }
+          },
+          {
+            "sourceType": "web",
+            "sourceProperties": {
+              "title": "BC Gov Digital Security",
+              "description": "BC Government's digital security source of information.",
+              "url": "https://digitalsecurity.gov.bc.ca/"
+            }
+          },
+          {
+            "sourceType": "web",
+            "sourceProperties": {
+              "title": "Cloud Native Application Security",
+              "description": "Application Security in a Cloud Native World.",
+              "url": "https://raw.githubusercontent.com/bcgov/devhub-resources/master/resources/security/BCGov-DevSecOps-Project.pdf"
+            }
+          }
+      ]
+    }
+  }
+  

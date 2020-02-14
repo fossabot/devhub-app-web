@@ -17,12 +17,11 @@ Created by Patrick Simonian
 */
 const moment = require('moment');
 const htmlToFormattedText = require('html-to-formatted-text');
-const { isArray, isString } = require('lodash');
+const { isPlainObject, isArray } = require('lodash');
 const visit = require('unist-util-visit');
 const remark = require('remark');
-const { RESOURCE_TYPES, PERSONAS_LIST } = require('../src/constants/ui');
+const { RESOURCE_TYPES_LIST, PERSONAS_LIST, RESOURCE_TYPES } = require('../src/constants/ui');
 const {
-  isDevhubTopic,
   isDevhubSiphon,
   isMarkdownRemark,
   isGithubRaw,
@@ -30,9 +29,11 @@ const {
   isMeetupEvent,
   getClosestResourceType,
   getClosestPersona,
-  isRegistryJson,
+  isTopicRegistryJson,
   isMatomoPageStats,
+  isJourneyRegistryJson,
 } = require('./utils/validators.js');
+const { isRelativePath, converter } = require('./utils/gatsbyRemark');
 const { flattenExpandedRegistry, expandRegistry } = require('./utils/githubRaw');
 const slugify = require('slugify');
 const validUrl = require('valid-url');
@@ -60,24 +61,24 @@ module.exports = ({ node, actions, getNode, getNodes }) => {
 
   if (isGithubRaw(node)) {
     createNodeField({ node, name: 'topics', value: node.___boundProperties.topics });
+    createNodeField({ node, name: 'journeys', value: node.___boundProperties.journeys });
     createNodeField({ node, name: 'position', value: node.___boundProperties.position });
   }
 
-  if (isDevhubTopic(node)) {
+  if (isJourneyRegistryJson(node)) {
+    createNodeField({ node, name: 'slug', value: slugify(node.name) });
+    createNodeField({ node, name: 'description', value: node.description });
+  }
+
+  if (isTopicRegistryJson(node)) {
     // add a content field that the markdown topics will map too
     createNodeField({ node, name: 'content', value: node.name });
     // to help with page path creation, we adapt a slug from the collection/topic name
     // because collections/topics are held within this repo they SHOULD be unique
     createNodeField({ node, name: 'slug', value: slugify(node.name) });
-
-    const ghRawNodes = getNodes().filter(isGithubRaw);
-
-    // bind gh raw nodes that match this topic
-    const nodesThatHaveTopic = ghRawNodes
-      .filter(n => n.___boundProperties.topics.includes(node.name))
-      .map(n => n.id);
-
-    createNodeField({ node, name: 'githubRaw', value: nodesThatHaveTopic });
+    createNodeField({ node, name: 'title', value: node.name });
+    createNodeField({ node, name: 'description', value: node.description });
+    createNodeField({ node, name: 'template', value: node.template ? node.template : 'default' });
   }
 
   if (isDevhubSiphon(node)) {
@@ -90,10 +91,11 @@ module.exports = ({ node, actions, getNode, getNodes }) => {
     }
     createNodeField({ node, name: 'standAlonePath', value: truePath });
     createNodeField({ node, name: 'personas', value: node.attributes.personas || [] });
+    createNodeField({ node, name: 'tags', value: node.attributes.tags || [] });
     createNodeField({ node, name: 'resourceType', value: node.resource.type || [] });
     createNodeField({ node, name: 'position', value: node._metadata.position });
     // bind all topics that reference this node, this can only be found by looking up the registry
-    const registry = getNodes().filter(isRegistryJson);
+    const registry = getNodes().filter(isTopicRegistryJson);
 
     const flattenedSources = flattenExpandedRegistry(expandRegistry(registry));
     // find topics that reference this node
@@ -148,7 +150,7 @@ module.exports = ({ node, actions, getNode, getNodes }) => {
   }
 
   if (isEventbriteEvents(node)) {
-    createNodeField({ node, name: 'topics', value: ['Community and Events'] });
+    // createNodeField({ node, name: 'topics', value: ['Community and Events'] });
     createNodeField({
       node,
       name: 'daysFromNow',
@@ -222,28 +224,35 @@ module.exports = ({ node, actions, getNode, getNodes }) => {
 
   if (isMarkdownRemark(node)) {
     const parentNode = getNode(node.parent);
-
     let title = node.frontmatter.title;
     const ast = remark.parse(node.internal.content);
     //if our title is blank, visit will search through the content for a usable and reasonable title
-    visit(ast, 'heading', node => {
-      // is title blank and is node on first line and a h1 or h2?
-      if (title === '' && (node.depth === 1 || node.depth === 2)) {
-        // accept headers up to 3rd line of markdown file
-        if (node.position.start.line < 3) {
-          title = node.children[0].value;
+    if (!title) {
+      visit(ast, 'heading', node => {
+        // is title blank and is node on first line and a h1 or h2?
+        const H2_NODE_DEPTH = 2;
+        const MAX_STARTING_LINE = 10;
+        const isH1orH2 = node.depth <= H2_NODE_DEPTH;
+        if (title === '' && isH1orH2) {
+          // accept headers up to 3rd line of markdown file
+          if (node.position.start.line < MAX_STARTING_LINE) {
+            title = node.children[0].value;
+          }
         }
-      }
-    });
+      });
+    }
 
-    let labels = [];
+    let labels = {};
     // assert the shape of labels in frontmatter
-    if (Object.prototype.hasOwnProperty(node.frontmatter, 'labels')) {
-      if (isArray(node.frontmatter.labels) && node.frontmatter.every(isString)) {
+    if (Object.prototype.hasOwnProperty.call(node.frontmatter, 'labels')) {
+      if (isPlainObject(node.frontmatter.labels)) {
         labels = node.frontmatter.labels;
-      } else if (isString(node.frontmatter.labels)) {
-        // split by any commas and trim
-        labels = node.frontmatter.labels.split().map(text => text.trim());
+      }
+    }
+    let tags = [];
+    if (Object.prototype.hasOwnProperty.call(node.frontmatter, 'tags')) {
+      if (isArray(node.frontmatter.tags)) {
+        tags = node.frontmatter.tags;
       }
     }
 
@@ -251,6 +260,18 @@ module.exports = ({ node, actions, getNode, getNodes }) => {
       node,
       name: 'title',
       value: node.frontmatter.title ? node.frontmatter.title : title,
+    });
+
+    createNodeField({
+      node,
+      name: 'labels',
+      value: labels,
+    });
+
+    createNodeField({
+      node,
+      name: 'tags',
+      value: tags,
     });
 
     createNodeField({
@@ -263,12 +284,6 @@ module.exports = ({ node, actions, getNode, getNodes }) => {
       node,
       name: 'image',
       value: node.frontmatter.image ? node.frontmatter.image : '',
-    });
-
-    createNodeField({
-      node,
-      name: 'labels',
-      value: labels,
     });
 
     createNodeField({
@@ -298,6 +313,13 @@ module.exports = ({ node, actions, getNode, getNodes }) => {
       const slug = node.frontmatter.title ? node.frontmatter.title : title;
       // const resourceType = node.frontmatter.resourceType ? getClosest
       // add a slug for page paths if exists
+      // allows to filter out github raw resources that shouldnt be rendered as cards
+      createNodeField({
+        node: parentNode,
+        name: 'pageOnly',
+        value: !!node.frontmatter.pageOnly,
+      });
+
       createNodeField({
         node: parentNode,
         name: 'slug',
@@ -324,7 +346,7 @@ module.exports = ({ node, actions, getNode, getNodes }) => {
 
       // if frontmatter resourcetype is valid we set it
       if (node.frontmatter.resourceType) {
-        resourceType = getClosestResourceType(node.frontmatter.resourceType);
+        resourceType = getClosestResourceType(node.frontmatter.resourceType, RESOURCE_TYPES_LIST);
       }
       // there is a chance tthe front matter resource type is invalid in the sense that it is mispelled/or not apart of the
       // resource types list
@@ -387,16 +409,20 @@ module.exports = ({ node, actions, getNode, getNodes }) => {
         value: node.frontmatter.description ? node.frontmatter.description : '',
       });
 
+      // images can point to local files to the repository which need to be resolved
+      let resolvedImage = '';
+      if (validUrl.isWebUri(node.frontmatter.image)) {
+        resolvedImage = node.frontmatter.image;
+      } else if (isRelativePath(node.frontmatter.image)) {
+        resolvedImage = converter('image', node.frontmatter.image, node, parentNode, {
+          getNode,
+          getNodes,
+        });
+      }
       createNodeField({
         node: parentNode,
         name: 'image',
-        value: node.frontmatter.image ? node.frontmatter.image : '',
-      });
-
-      createNodeField({
-        node: parentNode,
-        name: 'labels',
-        value: labels,
+        value: resolvedImage,
       });
 
       createNodeField({

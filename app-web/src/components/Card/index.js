@@ -18,7 +18,7 @@ Created by Patrick Simonian
 
 // common card layout components
 import styled from '@emotion/styled';
-import { RESOURCE_TYPES, TOPICS, SEARCH_RESOURCE_TYPES } from '../../constants/ui';
+import { RESOURCE_TYPES, TOPICS, SEARCH_RESOURCE_TYPES, JOURNEY } from '../../constants/ui';
 import Dotdotdot from 'react-dotdotdot';
 import Link from '../UI/Link/Link';
 import { EventLogoWrapper, DateLI, EventDetailsContainer } from '../Event';
@@ -50,7 +50,7 @@ export const DecorativeBar = styled.div`
 `;
 
 export const Title = styled(Dotdotdot)`
-  font-size: 20px;
+  font-size: 18px;
   color: ${({ theme }) => theme.colors.grey};
   line-height: 1.3;
   margin-bottom: 0;
@@ -194,6 +194,14 @@ export const CONTENT = {
     [SEARCH_RESOURCE_TYPES.GITHUB_ISSUE]: {
       id: 'SEARCH_RESOURCE_TYPES.GITHUB_ISSUE',
       text: 'Github Issue',
+    },
+    [JOURNEY]: {
+      id: 'RESOURCE_TYPES.JOURNEY',
+      text: 'Journey',
+    },
+    [SEARCH_RESOURCE_TYPES.DOCUMIZE]: {
+      id: 'SEARCH_RESOURCE_TYPES.DOCUMIZE',
+      text: 'Documize',
     },
   },
 };

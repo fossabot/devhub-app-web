@@ -5,6 +5,7 @@ import {
   TOPICS,
   RESOURCE_TYPES_LIST,
   SEARCH_RESOURCE_TYPES,
+  JOURNEY,
 } from '../../../constants/ui';
 import styled from '@emotion/styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,6 +17,8 @@ import {
   faLayerGroup,
   faCalendar,
   faExclamationCircle,
+  faProjectDiagram,
+  faBook,
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/fontawesome-free-brands';
 
@@ -53,6 +56,12 @@ export const ResourceTypeIcon = ({ type }) => {
       break;
     case SEARCH_RESOURCE_TYPES.GITHUB_ISSUE:
       icon = faExclamationCircle;
+      break;
+    case JOURNEY:
+      icon = faProjectDiagram;
+      break;
+    case SEARCH_RESOURCE_TYPES.DOCUMIZE:
+      icon = faBook;
       break;
     default:
       icon = null;

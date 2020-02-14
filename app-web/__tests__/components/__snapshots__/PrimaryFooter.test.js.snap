@@ -61,6 +61,7 @@ exports[`Primary Footer Component it renders and matches snapshot, when the Fair
 .emotion-0 {
   -webkit-text-decoration: underline;
   text-decoration: underline;
+  color: #1A5A96;
   font-weight: 400;
   text-transform: capitalize;
   padding: 0 4px;
@@ -70,6 +71,7 @@ exports[`Primary Footer Component it renders and matches snapshot, when the Fair
 .emotion-2 {
   -webkit-text-decoration: underline;
   text-decoration: underline;
+  color: #1A5A96;
   font-weight: 400;
   text-transform: capitalize;
   padding: 0 4px;
@@ -106,7 +108,8 @@ exports[`Primary Footer Component it renders and matches snapshot, when the Fair
       <li>
         <a
           class="emotion-0 emotion-1"
-          css="[object Object]"
+          css="You have tried to stringify object returned from \`css\` function. It isn't supposed to be used directly (e.g. as value of the \`className\` prop), but rather handed to emotion so it can handle it (e.g. as value of \`css\` prop)."
+          data-testid="ui-gatsby-link"
           href="/"
         >
           home
@@ -115,6 +118,7 @@ exports[`Primary Footer Component it renders and matches snapshot, when the Fair
       <li>
         <a
           class="emotion-2 emotion-3"
+          data-testid="ui-link"
           href="https://www2.gov.bc.ca/gov/content/home/disclaimer"
         >
           disclaimer
@@ -123,6 +127,7 @@ exports[`Primary Footer Component it renders and matches snapshot, when the Fair
       <li>
         <a
           class="emotion-2 emotion-3"
+          data-testid="ui-link"
           href="https://www2.gov.bc.ca/gov/content/home/privacy"
         >
           privacy
@@ -131,6 +136,7 @@ exports[`Primary Footer Component it renders and matches snapshot, when the Fair
       <li>
         <a
           class="emotion-2 emotion-3"
+          data-testid="ui-link"
           href="https://www2.gov.bc.ca/gov/content/home/accessibility"
         >
           accessibility
@@ -139,6 +145,7 @@ exports[`Primary Footer Component it renders and matches snapshot, when the Fair
       <li>
         <a
           class="emotion-2 emotion-3"
+          data-testid="ui-link"
           href="https://www2.gov.bc.ca/gov/content/home/copyright"
         >
           copyright
@@ -147,6 +154,7 @@ exports[`Primary Footer Component it renders and matches snapshot, when the Fair
       <li>
         <a
           class="emotion-2 emotion-3"
+          data-testid="ui-link"
           href="https://github.com/bcgov/devhub-app-web/issues"
         >
           contact us
