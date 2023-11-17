@@ -7,6 +7,8 @@ image: https://github.com/bcgov/devhub-app-web/blob/master/docs/images/book.png?
 > looking for pipeline docs? Please see [Jenkins Readme](./.jenkins/README.md) :)
 
 # DevHub App Web
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsheaphillips%2Fdevhub-app-web.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsheaphillips%2Fdevhub-app-web?ref=badge_shield)
+
  
  This is the primary repository for the BC Gov DevHub application.  The code contained mostly relates to the web application specifically, but other content may relate to the DevHub more generally.     
  
@@ -294,3 +296,6 @@ Issues are [markdown supported](https://guides.github.com/features/mastering-mar
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsheaphillips%2Fdevhub-app-web.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsheaphillips%2Fdevhub-app-web?ref=badge_large)
